@@ -1,0 +1,15 @@
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\bin\Release\covid_stats.exe.config
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\bin\Release\covid_stats.exe
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\bin\Release\covid_stats.pdb
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.csproj.ResolveComReference.cache
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.Form1.resources
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.graphs.Graphs.resources
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.graphs.MultiGraphs.resources
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.graphs.vaccine_graphs.resources
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.Properties.Resources.resources
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.csproj.GenerateResource.cache
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.csproj.CoreCompileInputs.cache
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.exe
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.pdb
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\covid_stats.csprojAssemblyReference.cache
+C:\a\covid-19\covid_stats\covid_stats_vacinations\covid_stats\obj\Release\help_about.Help_Form.resources
