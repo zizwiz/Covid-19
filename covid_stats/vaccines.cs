@@ -151,6 +151,8 @@ namespace covid_stats
             num_rows = values.GetUpperBound(0) + 1;
             num_cols = ((values.Length) / 2) - 1;
 
+            int value2 = 0;
+            int value = 0;
             // Display the data to show we have it.
 
             // Make column headers.
@@ -205,9 +207,11 @@ namespace covid_stats
                 dgv_vac_england.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
 
                 // dgv_vac_england.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r, tot2]); //Total 1st
-                dgv_vac_england.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]); //Total 1st
-
-
+                
+                value = 0;
+                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                dgv_vac_england.Rows[r - 1].Cells[3].Value = value; //Total 1st
+                
 
                 if (r > 1) //work out daily totals
                 {
@@ -220,13 +224,15 @@ namespace covid_stats
                         Convert.ToInt32(dgv_vac_england.Rows[r - 1].Cells[3].Value);
                 }
 
-
-                dgv_vac_england.Rows[r - 1].Cells[5].Value = Convert.ToInt32(values[r, tot2]); //Total 2nd
+                value = 0;
+                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                dgv_vac_england.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_england.Rows[r - 1].Cells[4].Value =
-                        (Convert.ToInt32(values[r, tot2]) - Convert.ToInt32(values[r - 1, tot2]));
+                    value2 = 0;
+                    if (values[r-1, tot2] != "") value2 = Convert.ToInt32(values[r-1, tot2]);
+                    dgv_vac_england.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
@@ -306,7 +312,10 @@ namespace covid_stats
 
                 dgv_vac_scotland.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
                 dgv_vac_scotland.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
-                dgv_vac_scotland.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]); //Total
+
+                value = 0;
+                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                dgv_vac_scotland.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
@@ -317,12 +326,15 @@ namespace covid_stats
                     dgv_vac_scotland.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_scotland.Rows[r - 1].Cells[3].Value);
                 }
 
-                dgv_vac_scotland.Rows[r - 1].Cells[5].Value = Convert.ToInt32(values[r, tot2]); //Total 2nd
+                value = 0;
+                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                dgv_vac_scotland.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_scotland.Rows[r - 1].Cells[4].Value =
-                        (Convert.ToInt32(values[r, tot2]) - Convert.ToInt32(values[r - 1, tot2]));
+                    value2 = 0;
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    dgv_vac_scotland.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
@@ -399,7 +411,10 @@ namespace covid_stats
 
                 dgv_vac_wales.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
                 dgv_vac_wales.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
-                dgv_vac_wales.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]); //Total
+
+                value = 0;
+                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                dgv_vac_wales.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
@@ -410,12 +425,15 @@ namespace covid_stats
                     dgv_vac_wales.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_wales.Rows[r - 1].Cells[3].Value);
                 }
 
-                dgv_vac_wales.Rows[r - 1].Cells[5].Value = Convert.ToInt32(values[r, tot2]); //Total 2nd
+                value = 0;
+                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                dgv_vac_wales.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_wales.Rows[r - 1].Cells[4].Value =
-                        (Convert.ToInt32(values[r, tot2]) - Convert.ToInt32(values[r - 1, tot2]));
+                    value2 = 0;
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    dgv_vac_wales.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
@@ -492,7 +510,10 @@ namespace covid_stats
 
                 dgv_vac_n_ireland.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
                 dgv_vac_n_ireland.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
-                dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]); //Total
+
+                value = 0;
+                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
@@ -503,12 +524,16 @@ namespace covid_stats
                     dgv_vac_n_ireland.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value);
                 }
 
-                dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value = Convert.ToInt32(values[r, tot2]); //Total 2nd
+                value = 0;
+                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_n_ireland.Rows[r - 1].Cells[4].Value =
-                        (Convert.ToInt32(values[r, tot2]) - Convert.ToInt32(values[r - 1, tot2]));
+                    value2 = 0;
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    dgv_vac_n_ireland.Rows[r - 1].Cells[4].Value = value - value2;
+
                 }
                 else if (r == 1)
                 {
