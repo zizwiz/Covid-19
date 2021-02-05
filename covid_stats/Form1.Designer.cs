@@ -558,9 +558,9 @@
             this.btn_unverified_help.Location = new System.Drawing.Point(12, 318);
             this.btn_unverified_help.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_unverified_help.Name = "btn_unverified_help";
-            this.btn_unverified_help.Size = new System.Drawing.Size(141, 34);
+            this.btn_unverified_help.Size = new System.Drawing.Size(245, 34);
             this.btn_unverified_help.TabIndex = 9;
-            this.btn_unverified_help.Text = "Why Unverified?";
+            this.btn_unverified_help.Text = "Help with Data Understanding?";
             this.btn_unverified_help.UseVisualStyleBackColor = true;
             this.btn_unverified_help.Click += new System.EventHandler(this.btn_unverified_help_Click);
             // 

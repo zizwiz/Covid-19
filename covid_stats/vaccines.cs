@@ -970,7 +970,7 @@ namespace covid_stats
 
             int remaining_number =  14000000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
 
-            DateTime d2 = new DateTime(2021, 2, 14);
+            DateTime d2 = new DateTime(2021, 2, 28);
             DateTime d1 = DateTime.Now;
 
             if (d1 < d2)

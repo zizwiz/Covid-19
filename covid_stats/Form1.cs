@@ -293,12 +293,17 @@ namespace covid_stats
         {
             lbl_who_citation.Text = "WHO coronavirus disease (COVID-19) dashboard. Geneva: World Health Organization, 2020.";
             lbl_country_stats_citation.Text = "United Nations Office for the Coordination of Humanitarian Affairs, Humanitarian Data Exchange";
-            lbl_vacinations_citation.Text = "Our World in Data - Research and data to make progress against the world’s largest problems \rvia Github owid repo";
+            lbl_vacinations_citation.Text = "Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8";
         }
 
         private void btn_unverified_help_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("These figures mostly come from reliable verifiable sources but some seem to come from speeches");
+            MessageBox.Show("Some help with understanding the data. \r\n"+
+            "\r\nAlthough we are getting better data from around the world some is a bit sketchy. You will often see a result of 0 all this means I do not have solid data for this so rather than put down something that has a high probability of being incorrect I just put down 0.\r\n" +
+            "\r\nThis is how the data is worked out before I get it and how I lay it out.\r\n" +
+            "\r\nTot Doses Given: total number of doses administered.This is counted as a single dose, and may not equal the total number of people vaccinated, depending on the specific dose regime(e.g.people receive multiple doses).If a person receives one dose of the vaccine, this metric goes up by 1.If they receive a second dose, it goes up by 1 again.\r\n" +
+            "\r\nHad Min 1 Vac: total number of people who received at least one vaccine dose.If a person receives the first dose of a 2 - dose vaccine, this metric goes up by 1.If they receive the second dose, the metric stays the same.\r\n" +
+            "\r\nFully Vac Total: total number of people who received all doses prescribed by the vaccination protocol.If a person receives the first dose of a 2 - dose vaccine, this metric stays the same.If they receive the second dose, the metric goes up by 1.Some vaccines are only single dose\r\n");
         }
 
         private void btn_help_Click(object sender, EventArgs e)
