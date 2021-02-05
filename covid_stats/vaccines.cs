@@ -939,38 +939,43 @@ namespace covid_stats
             S1["DoughnutRadius"] = "41"; // leave just a little space!
             S2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
 
-            S1.Points.AddXY("1", "68085031");
+            long o_remaining_number = 68085031 - (int)dgv_vac_uk[2, numrows].Value;
+            S1.Points.AddXY("1", o_remaining_number);
             S1.Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString());
 
-
-            S2.Points.AddXY("1", "68085031");
+            long i_remaining_number = 68085031 - (int)dgv_vac_uk[5, numrows].Value;
+            S2.Points.AddXY("1", i_remaining_number);
             S2.Points.AddXY("2", "0");
             S2.Points.AddXY("3", dgv_vac_uk[5, numrows].Value.ToString());
 
-        
+
             ///////////////////////////////////////
             /// PieChart for World % covered
             /// ///////////////////////////////////
+            long w_remaining_number = 7840098000 - (int)dgv_vac_world[2, numrows].Value;
+
             numrows = (dgv_vac_world.RowCount) - 1;
             G2.chrt_world_vac.Legends.Clear();
             G2.chrt_world_vac.Series["World"].Label = " ";
             G2.chrt_world_vac.Titles.Add("World % Covered = " + dgv_vac_world[3, numrows].Value);
-            G2.chrt_world_vac.Series["World"].Points.AddXY("1", "7840098000"); //World Population
+            G2.chrt_world_vac.Series["World"].Points.AddXY("1", w_remaining_number); //World Population
             G2.chrt_world_vac.Series["World"].Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString()); // vaccinated
 
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
             /// ///////////////////////////////////
+            int remaining_number = 14000000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
+
             numrows = (dgv_vac_uk.RowCount) - 1;
             G2.chrt_uk_target.Legends.Clear();
             G2.chrt_uk_target.Series["uk_target"].Label = " ";
             G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 13.9 million 1st doses by 14 Feb 2021");
-            G2.chrt_uk_target.Series["uk_target"].Points.AddXY("1", "13900000"); //target
+            G2.chrt_uk_target.Series["uk_target"].Points.AddXY("1", remaining_number); //target
             G2.chrt_uk_target.Series["uk_target"].Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString()); // vaccinated
 
-            int remaining_number =  14000000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
+            
 
-            DateTime d2 = new DateTime(2021, 2, 28);
+            DateTime d2 = new DateTime(2021, 2, 14);
             DateTime d1 = DateTime.Now;
 
             if (d1 < d2)
