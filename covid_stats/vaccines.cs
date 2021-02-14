@@ -964,18 +964,18 @@ namespace covid_stats
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
             /// ///////////////////////////////////
-            int remaining_number = 14000000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
+            int remaining_number = 31800000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
 
             numrows = (dgv_vac_uk.RowCount) - 1;
             G2.chrt_uk_target.Legends.Clear();
             G2.chrt_uk_target.Series["uk_target"].Label = " ";
-            G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 13.9 million 1st doses by 14 Feb 2021");
+            G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 31.8 million 1st doses by 1 May 2021");
             G2.chrt_uk_target.Series["uk_target"].Points.AddXY("1", remaining_number); //target
             G2.chrt_uk_target.Series["uk_target"].Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString()); // vaccinated
 
             
 
-            DateTime d2 = new DateTime(2021, 2, 14);
+            DateTime d2 = new DateTime(2021, 5, 1);
             DateTime d1 = DateTime.Now;
 
             if (d1 < d2)
@@ -985,6 +985,7 @@ namespace covid_stats
                 G2.label2.Visible = true;
                 G2.label4.Visible = true;
                 int DaysToGo = convert.DaysBetweenDates(d2, d1);
+                if (DaysToGo == 0) DaysToGo = 1;
 
                 G2.lbl_HowManyToGo.Text = remaining_number.ToString("### ### ##0");
                 G2.lbl_HowManyEachDay.Text = (remaining_number / DaysToGo).ToString("### ### ##0");
