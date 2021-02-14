@@ -268,11 +268,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(74, 4);
+            this.label1.Location = new System.Drawing.Point(12, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 17);
+            this.label1.Size = new System.Drawing.Size(192, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Is UK on target?";
+            this.label1.Text = "Is UK on 1st Vaccine Target?";
             // 
             // chrt_scotland_vac
             // 
