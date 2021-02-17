@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace covid_stats
@@ -99,14 +100,31 @@ namespace covid_stats
 
             //Name,WHO Region,Cases - cumulative total,Cases - cumulative total per 1 million population,Cases - newly reported in last 7 days,Cases - newly reported in last 24 hours,Deaths - cumulative total,Deaths - cumulative total per 1 million population,Deaths - newly reported in last 7 days,Deaths - newly reported in last 24 hours,Transmission Classification
 
+
+            string[] country_data = File.ReadAllLines("who_world_stats.csv");
+            //get the item number in the array.
+            string[] headings = Regex.Split(country_data[0], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+            //  location,ISO Code,date,vaccine,total_vaccinations,source_url
+
+            int nam = Array.IndexOf(headings, "Name");
+            int tot_cas = Array.IndexOf(headings, "Cases - cumulative total");
+            int case_per = Array.IndexOf(headings, "Cases - cumulative total per 100000 population");
+            int tot_dea = Array.IndexOf(headings, "Deaths - cumulative total");
+            int dea_per = Array.IndexOf(headings, "Deaths - cumulative total per 100000 population");
+
+
+
+
+
+
             // Add the data.
             for (int r = 2; r < num_rows; r++)
             {
                 dgv_world_stats_cases.Rows.Add();
                 dgv_world_stats_cases.Rows[r - 2].Cells[0].Value = r-1; //Country
-                dgv_world_stats_cases.Rows[r - 2].Cells[1].Value = values[r, 0]; //Country
-                dgv_world_stats_cases.Rows[r - 2].Cells[2].Value = Convert.ToInt32(values[r, 2]); //Total
-                dgv_world_stats_cases.Rows[r - 2].Cells[3].Value = (float.Parse(values[r, 3]) / 10000).ToString("0.0000");
+                dgv_world_stats_cases.Rows[r - 2].Cells[1].Value = values[r, nam]; //Country
+                dgv_world_stats_cases.Rows[r - 2].Cells[2].Value = Convert.ToInt32(values[r, tot_cas]); //Total
+                dgv_world_stats_cases.Rows[r - 2].Cells[3].Value = (float.Parse(values[r, case_per]) / 1000).ToString("0.0000"); //%population
             }
 
             dgv_world_stats_cases.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -137,9 +155,9 @@ namespace covid_stats
             for (int r = 2; r < num_rows; r++)
             {
                 dgv_world_stats_deaths.Rows.Add();
-                dgv_world_stats_deaths.Rows[r - 2].Cells[1].Value = values[r, 0]; //Country
-                dgv_world_stats_deaths.Rows[r - 2].Cells[2].Value = Convert.ToInt32(values[r, 6]); //Total
-                dgv_world_stats_deaths.Rows[r - 2].Cells[3].Value = (float.Parse(values[r, 7]) / 10000).ToString("0.0000");
+                dgv_world_stats_deaths.Rows[r - 2].Cells[1].Value = values[r, nam]; //Country
+                dgv_world_stats_deaths.Rows[r - 2].Cells[2].Value = Convert.ToInt32(values[r, tot_dea]); //Total
+                dgv_world_stats_deaths.Rows[r - 2].Cells[3].Value = (float.Parse(values[r, dea_per]) / 1000).ToString("0.0000"); //Deaths - cumulative total per 100000 population
             }
         
             
@@ -163,10 +181,10 @@ namespace covid_stats
             /// Global Figures
             ////////////////////////////////////////////////////////
 
-            lbl_global_cases_total.Text = "Cases Global Total = " + values[1, 2];
-            lbl_global_cases_percentage.Text = "Cases Global Pop % = " + (float.Parse(values[1, 3]) / 10000).ToString("0.0000");
-            lbl_global_deaths_total.Text = "Deaths Global Total = " + values[1, 6];
-            lbl_global_deaths_percentage.Text = "Deaths Global Pop % = " + (float.Parse(values[1, 7]) / 10000).ToString("0.0000");
+            lbl_global_cases_total.Text = "Cases Global Total = " + values[1, tot_cas];
+            lbl_global_cases_percentage.Text = "Cases Global Pop % = " + (float.Parse(values[1, case_per]) / 1000).ToString("0.0000");
+            lbl_global_deaths_total.Text = "Deaths Global Total = " + values[1, tot_dea];
+            lbl_global_deaths_percentage.Text = "Deaths Global Pop % = " + (float.Parse(values[1, dea_per]) / 1000).ToString("0.0000");
 
             dgv_world_stats_cases.ClearSelection();
             dgv_world_stats_deaths.ClearSelection();
