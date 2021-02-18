@@ -12,6 +12,7 @@ namespace covid_stats
     {
         private string[] world_data;
         long w_population = 7794798739;
+        private long uk_population = 68114457;
         public Form1()
         {
             InitializeComponent();

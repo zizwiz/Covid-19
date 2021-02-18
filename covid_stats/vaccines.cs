@@ -675,11 +675,11 @@ namespace covid_stats
 
                 //work out percentages
                 dgv_vac_uk.Rows[t].Cells[3].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[2].Value)) * 100) / w_population)
+                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[2].Value)) * 100) / uk_population)
                     .ToString("0.0000") + "%";
 
                 dgv_vac_uk.Rows[t].Cells[6].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[5].Value)) * 100) / w_population)
+                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[5].Value)) * 100) / uk_population)
                     .ToString("0.0000") + "%";
 
             }
