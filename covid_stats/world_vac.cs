@@ -24,7 +24,7 @@ namespace covid_stats
 
         private void Get_world_vac_files(string data_file)
         {
-            
+
 
             Directory.CreateDirectory("Country_Files");
 
@@ -42,7 +42,7 @@ namespace covid_stats
                         }
                         else //get each country
                         {
-                            
+
                             string url =
                                 "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/" +
                                 who_line + ".csv";
@@ -87,7 +87,7 @@ namespace covid_stats
             cmbobx_world_vac.SelectedIndex = 0;
         }
 
-      
+
 
         private void extract_world_vac_countries()
         {
@@ -100,7 +100,7 @@ namespace covid_stats
 
             string country = "";
             string last_read_country = " ";
-            
+
             if (File.Exists(in_file)) File.Delete(in_file);
 
             if (!File.Exists(in_file))
@@ -109,7 +109,7 @@ namespace covid_stats
                     "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/locations.csv";
                 DownloadFile(url, in_file);
             }
-            
+
             // save file name
             StreamWriter outfile = new StreamWriter(data_file);
 
@@ -132,7 +132,7 @@ namespace covid_stats
                             outfile.WriteLine(country); //only put in file is unique
                         }
                     }
-                    
+
                     last_read_country = country;
                     counter++;
                 }
@@ -163,12 +163,12 @@ namespace covid_stats
                 string[,] values = Load_vac_Csv("Country_Files\\" + cmbobx_world_vac.SelectedItem + ".csv");
 
                 num_rows = values.GetUpperBound(0) + 1;
-               
+
                 dgv_vac_world_unverified.Columns.Clear();
                 dgv_vac_world_unverified.Columns.Add("Date", "Date");
                 dgv_vac_world_unverified.Columns["Date"].DefaultCellStyle.Format = "dd/MM/yyyy";
                 dgv_vac_world_unverified.Columns["Date"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
-                
+
 
                 dgv_vac_world_unverified.Columns.Add("Vaccine", "Vaccine");
                 dgv_vac_world_unverified.Columns["Vaccine"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -189,7 +189,7 @@ namespace covid_stats
                 dgv_vac_world_unverified.Columns["Last Period 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dgv_vac_world_unverified.Columns["Last Period 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
-                dgv_vac_world_unverified.Columns.Add("Total 2", "2nd Vac Total");
+                dgv_vac_world_unverified.Columns.Add("Total 2", "Fully Vac Total");
                 dgv_vac_world_unverified.Columns["Total 2"].DefaultCellStyle.Format = "### ### ### ##0";
                 dgv_vac_world_unverified.Columns["Total 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dgv_vac_world_unverified.Columns["Total 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -218,7 +218,7 @@ namespace covid_stats
                 // Add the data.
                 for (int r = 1; r < num_rows; r++)
                 {
-                    string[] fields = Regex.Split(country_data[r], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"); 
+                    string[] fields = Regex.Split(country_data[r], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
                     dgv_vac_world_unverified.Rows.Add();
                     dgv_vac_world_unverified.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
@@ -243,16 +243,16 @@ namespace covid_stats
                     {
                         dgv_vac_world_unverified.Rows[r - 1].Cells[5].Value = Convert.ToInt32(values[r, tot2]);
                     }
-                    
+
                     dgv_vac_world_unverified.Rows[r - 1].Cells[6].Value = values[r, url]; //Data Source
 
                     if (r > 1) //work out daily 1st vac totals
                     {
                         if (values[r, tot] != "") big = Convert.ToInt32(values[r, tot]);
-                        if (values[r-1, tot] != "") small = Convert.ToInt32(values[r-1, tot]);
+                        if (values[r - 1, tot] != "") small = Convert.ToInt32(values[r - 1, tot]);
 
                         dgv_vac_world_unverified.Rows[r - 1].Cells[2].Value = big - small;
-}
+                    }
                     else if (r == 1)
                     {
                         dgv_vac_world_unverified.Rows[r - 1].Cells[2].Value =
@@ -260,22 +260,29 @@ namespace covid_stats
                     }
 
                     big = small = 0; //reset
-                    
-                    if (r > 1) //work out 2nd vac daily totals
+
+                    if (values[r, tot2] == values[r, tot])
                     {
-                        if (values[r, tot2] != "") big = Convert.ToInt32(values[r, tot2]);
-                        if (values[r - 1, tot2] != "") small = Convert.ToInt32(values[r - 1, tot2]);
-
-                        dgv_vac_world_unverified.Rows[r - 1].Cells[4].Value = big - small;
-
+                        dgv_vac_world_unverified.Rows[r - 1].Cells[4].Value = 0;
                     }
-                    else if (r == 1)
+                    else
                     {
-                        dgv_vac_world_unverified.Rows[r - 1].Cells[4].Value =
-                            Convert.ToInt32(dgv_vac_world_unverified.Rows[r - 1].Cells[5].Value).ToString();
-                    }
+                        if (r > 1) //work out 2nd vac daily totals
+                        {
+                            if (values[r, tot2] != "") big = Convert.ToInt32(values[r, tot2]);
+                            if (values[r - 1, tot2] != "") small = Convert.ToInt32(values[r - 1, tot2]);
 
-                    big = small = 0; //reset
+                            dgv_vac_world_unverified.Rows[r - 1].Cells[4].Value = big - small;
+
+                        }
+                        else if (r == 1)
+                        {
+                            dgv_vac_world_unverified.Rows[r - 1].Cells[4].Value =
+                                Convert.ToInt32(dgv_vac_world_unverified.Rows[r - 1].Cells[5].Value).ToString();
+                        }
+
+                        big = small = 0; //reset
+                    }
                 }
 
                 dgv_vac_world_unverified.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -301,7 +308,7 @@ namespace covid_stats
                 int count = 0;
 
                 num_rows = values.GetUpperBound(0) + 1;
-                
+
                 dgv_vac_world_unverified.Columns.Clear();
                 //location,date,total_vaccinations,daily_vaccinations,total_vaccinations_per_hundred,daily_vaccinations_per_million
                 dgv_vac_world_unverified.Columns.Add("Country", "Country");
@@ -349,7 +356,7 @@ namespace covid_stats
                 int pop = Array.IndexOf(headings, "people_vaccinated_per_hundred");
                 int tot2 = Array.IndexOf(headings, "people_fully_vaccinated"); //Fully
                 int pop2 = Array.IndexOf(headings, "people_fully_vaccinated_per_hundred");
-                
+
 
 
                 // Add the data.
@@ -397,12 +404,12 @@ namespace covid_stats
                         }
                         else
                         {
-                           dgv_vac_world_unverified.Rows[count].Cells[5].Value = (float)0;
+                            dgv_vac_world_unverified.Rows[count].Cells[5].Value = (float)0;
                         }
 
                         if (values[r, gtot] != "") //Total vac administered
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt32(values[r, gtot]); 
+                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt32(values[r, gtot]);
                         }
                         else
                         {
@@ -442,7 +449,7 @@ namespace covid_stats
                         }
                         else
                         {
-                           dgv_vac_world_unverified.Rows[count - 1].Cells[5].Value = (float)0;
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[5].Value = (float)0;
                         }
 
                         if (values[r, gtot] != "")
@@ -469,20 +476,20 @@ namespace covid_stats
             }
         }
 
-        private void dgv_vac_world_unverified_CellContentClick(object sender, DataGridViewCellEventArgs e) 
+        private void dgv_vac_world_unverified_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             //start default browser and go to site but only if we are in url column
             try
             {
-                if ((e.ColumnIndex == 6)&&(tabcontrol_covid19.SelectedTab.Name == "tab_world_vac"))
-                Process.Start(dgv_vac_world_unverified.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                if ((e.ColumnIndex == 6) && (tabcontrol_covid19.SelectedTab.Name == "tab_world_vac"))
+                    Process.Start(dgv_vac_world_unverified.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             }
             catch (Exception exception)
             {
                 //Clicked on header on URL column
                 // Ignore the issue and carry on. 
             }
-            
+
         }
     }
 }
