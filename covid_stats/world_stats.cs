@@ -93,9 +93,24 @@ namespace covid_stats
             dgv_world_stats_cases.Columns.Clear();
 
             dgv_world_stats_cases.Columns.Add("Rank", "Rank");
+            dgv_world_stats_cases.Columns["Rank"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_world_stats_cases.Columns["Rank"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+
             dgv_world_stats_cases.Columns.Add("Country", "Country");
+            dgv_world_stats_cases.Columns["Country"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+
             dgv_world_stats_cases.Columns.Add("Total", "Total");
+            dgv_world_stats_cases.Columns["Total"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_world_stats_cases.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_world_stats_cases.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+
             dgv_world_stats_cases.Columns.Add("% Population", "% Population");
+            dgv_world_stats_cases.Columns["% Population"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_world_stats_cases.Columns["% Population"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
 
 
             //Name,WHO Region,Cases - cumulative total,Cases - cumulative total per 1 million population,Cases - newly reported in last 7 days,Cases - newly reported in last 24 hours,Deaths - cumulative total,Deaths - cumulative total per 1 million population,Deaths - newly reported in last 7 days,Deaths - newly reported in last 24 hours,Transmission Classification
@@ -144,9 +159,20 @@ namespace covid_stats
             dgv_world_stats_deaths.Columns.Clear();
 
             dgv_world_stats_deaths.Columns.Add("Rank", "Rank");
+            dgv_world_stats_deaths.Columns["Rank"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_world_stats_deaths.Columns["Rank"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
             dgv_world_stats_deaths.Columns.Add("Country", "Country");
+            dgv_world_stats_deaths.Columns["Country"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
             dgv_world_stats_deaths.Columns.Add("Total", "Total");
+            dgv_world_stats_deaths.Columns["Total"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_world_stats_deaths.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_world_stats_deaths.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
             dgv_world_stats_deaths.Columns.Add("% Population", "% Population");
+            dgv_world_stats_deaths.Columns["% Population"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_world_stats_deaths.Columns["% Population"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
 
             //Name,WHO Region,Cases - cumulative total,Cases - cumulative total per 1 million population,Cases - newly reported in last 7 days,Cases - newly reported in last 24 hours,Deaths - cumulative total,Deaths - cumulative total per 1 million population,Deaths - newly reported in last 7 days,Deaths - newly reported in last 24 hours,Transmission Classification
@@ -181,9 +207,9 @@ namespace covid_stats
             /// Global Figures
             ////////////////////////////////////////////////////////
 
-            lbl_global_cases_total.Text = "Cases Global Total = " + values[1, tot_cas];
+            lbl_global_cases_total.Text = "Cases Global Total = " + (int.Parse(values[1, tot_cas])).ToString("### ### ### ##0");
             lbl_global_cases_percentage.Text = "Cases Global Pop % = " + (float.Parse(values[1, case_per]) / 1000).ToString("0.0000");
-            lbl_global_deaths_total.Text = "Deaths Global Total = " + values[1, tot_dea];
+            lbl_global_deaths_total.Text = "Deaths Global Total = " + (int.Parse(values[1, tot_dea])).ToString("### ### ### ##0");
             lbl_global_deaths_percentage.Text = "Deaths Global Pop % = " + (float.Parse(values[1, dea_per]) / 1000).ToString("0.0000");
 
             dgv_world_stats_cases.ClearSelection();

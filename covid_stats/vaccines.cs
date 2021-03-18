@@ -964,18 +964,18 @@ namespace covid_stats
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
             /// ///////////////////////////////////
-            int remaining_number = 31800000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
+            int remaining_number = 52800000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
 
             numrows = (dgv_vac_uk.RowCount) - 1;
             G2.chrt_uk_target.Legends.Clear();
             G2.chrt_uk_target.Series["uk_target"].Label = " ";
-            G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 31.8 million 1st doses by 1 May 2021");
+            G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 52.8 million 1st doses by 31 July 2021");
             G2.chrt_uk_target.Series["uk_target"].Points.AddXY("1", remaining_number); //target
             G2.chrt_uk_target.Series["uk_target"].Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString()); // vaccinated
 
             
 
-            DateTime d2 = new DateTime(2021, 5, 1);
+            DateTime d2 = new DateTime(2021, 7, 31);
             DateTime d1 = DateTime.Now;
 
             if (d1 < d2)
