@@ -39,10 +39,31 @@ namespace covid_stats
                     //for (int c = 0; c < num_cols - 1; c++)
                     dgvValues.Columns.Add("Date", "Date"); 
                     dgvValues.Columns["Date"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    dgvValues.Columns["Date"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+                    dgvValues.Columns["Date"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
                     dgvValues.Columns.Add("Tot Deaths", "Tot Deaths");
+                    dgvValues.Columns["Tot Deaths"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+                    dgvValues.Columns["Tot Deaths"].DefaultCellStyle.Format = "### ### ### ##0";
+                    dgvValues.Columns["Tot Deaths"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
                     dgvValues.Columns.Add("Daily Deaths", "Daily Deaths");
+                    dgvValues.Columns["Daily Deaths"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+                    dgvValues.Columns["Daily Deaths"].DefaultCellStyle.Format = "### ### ### ##0";
+                    dgvValues.Columns["Daily Deaths"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
                     dgvValues.Columns.Add("Tot Cases", "Tot Cases");
+                    dgvValues.Columns["Tot Cases"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+                    dgvValues.Columns["Tot Cases"].DefaultCellStyle.Format = "### ### ### ##0";
+                    dgvValues.Columns["Tot Cases"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
                     dgvValues.Columns.Add("Daily Cases", "Daily Cases");
+                    dgvValues.Columns["Daily Cases"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+                    dgvValues.Columns["Daily Cases"].DefaultCellStyle.Format = "### ### ### ##0";
+                    dgvValues.Columns["Daily Cases"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
 
 
