@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -856,6 +857,7 @@ namespace covid_stats
             foreach (DataGridViewRow row in dgv_vac_scotland.Rows)
             {
                 G2.chrt_scotland_vac.Series["Scotland"].Points.Add(Convert.ToDouble(dgv_vac_scotland["Total", counter].Value));
+                G2.chrt_scotland_vac.Series["Scotland_fully"].Points.Add(Convert.ToDouble(dgv_vac_scotland["Total 2", counter].Value));
                 G2.chrt_scotland_vac.Series["Scotland"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_scotland["Date", counter].Value).ToString("d");
                 
                 counter++;
@@ -865,15 +867,17 @@ namespace covid_stats
             foreach (DataGridViewRow row in dgv_vac_england.Rows)
             {
                 G2.chrt_england_vac.Series["England"].Points.Add(Convert.ToDouble(dgv_vac_england["Total", counter].Value));
-                    G2.chrt_england_vac.Series["England"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_england["Date", counter].Value).ToString("d");
+                G2.chrt_england_vac.Series["England_fully"].Points.Add(Convert.ToDouble(dgv_vac_england["Total 2", counter].Value));
+                G2.chrt_england_vac.Series["England"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_england["Date", counter].Value).ToString("d");
 
-                    counter++;
+                counter++;
             }
 
             counter = 0;
             foreach (DataGridViewRow row in dgv_vac_n_ireland.Rows)
             {
                 G2.chrt_n_ireland_vac.Series["N. Ireland"].Points.Add(Convert.ToDouble(dgv_vac_n_ireland["Total", counter].Value));
+                G2.chrt_n_ireland_vac.Series["N. Ireland_fully"].Points.Add(Convert.ToDouble(dgv_vac_n_ireland["Total 2", counter].Value));
                 G2.chrt_n_ireland_vac.Series["N. Ireland"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_n_ireland["Date", counter].Value).ToString("d");
                 
                 counter++;
@@ -883,6 +887,7 @@ namespace covid_stats
             foreach (DataGridViewRow row in dgv_vac_wales.Rows)
             {
                 G2.chrt_wales_vac.Series["Wales"].Points.Add(Convert.ToDouble(dgv_vac_wales["Total", counter].Value));
+                G2.chrt_wales_vac.Series["Wales_fully"].Points.Add(Convert.ToDouble(dgv_vac_wales["Total 2", counter].Value));
                 G2.chrt_wales_vac.Series["Wales"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_wales["Date", counter].Value).ToString("d");
 
                counter++;
@@ -895,7 +900,15 @@ namespace covid_stats
             G2.chrt_uk_vac.Legends.Clear();
             G2.chrt_uk_vac.Series["UK_1st"].Label = " ";
             //G2.chrt_uk_vac.Titles.Add("UK % 1st (outer ring) = " + dgv_vac_uk[3, numrows].Value + "\rUK % 2nd (inner ring) = " + dgv_vac_uk[3, numrows].Value);
-            G2.chrt_uk_vac.Titles.Add("UK %: 1st = outer ring, 2nd = inner ring");
+
+
+            string firsts = Regex.Replace(dgv_vac_uk[3, numrows].Value.ToString(), @" ", "");
+            firsts = firsts.Substring(0, firsts.Length - 3) + "%";
+
+            string fully = Regex.Replace(dgv_vac_uk[6, numrows].Value.ToString(), @" ", "");
+            fully = fully.Substring(0, fully.Length - 3) + "%";
+
+            G2.chrt_uk_vac.Titles.Add("UK: 1st = " + firsts + ", Full = " + fully);
 
 
             G2.chrt_uk_vac.Series.Clear();
@@ -952,14 +965,83 @@ namespace covid_stats
             ///////////////////////////////////////
             /// PieChart for World % covered
             /// ///////////////////////////////////
-            long w_remaining_number = 7840098000 - (int)dgv_vac_world[2, numrows].Value;
-
+            /*
+            long w_remaining_number = 7861686173 - (int)dgv_vac_world[2, numrows].Value;
+                        
             numrows = (dgv_vac_world.RowCount) - 1;
             G2.chrt_world_vac.Legends.Clear();
             G2.chrt_world_vac.Series["World"].Label = " ";
             G2.chrt_world_vac.Titles.Add("World % Covered = " + dgv_vac_world[3, numrows].Value);
             G2.chrt_world_vac.Series["World"].Points.AddXY("1", w_remaining_number); //World Population
             G2.chrt_world_vac.Series["World"].Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString()); // vaccinated
+            */
+
+            numrows = (dgv_vac_world.RowCount) - 1;
+            G2.chrt_world_vac.Legends.Clear();
+            G2.chrt_world_vac.Series["World_1st"].Label = " ";
+
+            string wfirsts = Regex.Replace(dgv_vac_world[3, numrows].Value.ToString(), @" ", "");
+            wfirsts = wfirsts.Substring(0, wfirsts.Length - 3) + "%";
+
+            string wfully = Regex.Replace(dgv_vac_world[6, numrows].Value.ToString(), @" ", "");
+            wfully = wfully.Substring(0, wfully.Length - 3) + "%";
+
+            G2.chrt_world_vac.Titles.Add("World: 1st = " + wfirsts + ", Full = " + wfully);
+
+
+            G2.chrt_world_vac.Series.Clear();
+            Series wS1 = G2.chrt_world_vac.Series.Add("World_1st");
+            Series wS2 = G2.chrt_world_vac.Series.Add("World_2nd");
+
+            G2.chrt_world_vac.Series["World_2nd"].Label = " ";
+            G2.chrt_world_vac.ChartAreas.Clear();
+            G2.chrt_world_vac.Legends.Clear();
+            G2.chrt_world_vac.Series["World_1st"].Label = " ";
+
+            ChartArea wCA1 = G2.chrt_world_vac.ChartAreas.Add("wOuter");
+            ChartArea wCA2 = G2.chrt_world_vac.ChartAreas.Add("wInner");
+
+            wCA1.Position = new ElementPosition(0, 0, 100, 100);
+            wCA2.Position = new ElementPosition(0, 0, 100, 100);
+
+            float winnerSize = 60;
+            float wouterSize = 100;
+            float wbaseDoughnutWidth = 25;
+
+            wCA1.InnerPlotPosition = new ElementPosition((100 - wouterSize) / 2,
+                (100 - wouterSize) / 2 + 10, wouterSize, wouterSize - 10);
+
+            wCA2.InnerPlotPosition = new ElementPosition((100 - winnerSize) / 2,
+                (100 - winnerSize) / 2 + 10, winnerSize, winnerSize - 10);
+
+            wS1["DoughnutRadius"] =
+                Math.Min(wbaseDoughnutWidth * (100 / wouterSize), 99).ToString().Replace(",", ".");
+            wS2["DoughnutRadius"] =
+                Math.Min(wbaseDoughnutWidth * (100 / winnerSize), 99).ToString().Replace(",", ".");
+
+
+            wS1.ChartArea = wCA1.Name;
+            wS2.ChartArea = wCA2.Name;
+
+            wS1.ChartType = SeriesChartType.Doughnut;
+            wS2.ChartType = SeriesChartType.Doughnut;
+
+            wCA2.BackColor = Color.Transparent;
+            wS1["DoughnutRadius"] = "41"; // leave just a little space!
+            wS2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
+
+            long wo_remaining_number = 7861686173 - (int)dgv_vac_world[2, numrows].Value;
+            wS1.Points.AddXY("1", wo_remaining_number);
+            wS1.Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString());
+
+            long wi_remaining_number = 7861686173 - (int)dgv_vac_world[5, numrows].Value;
+            wS2.Points.AddXY("1", wi_remaining_number);
+            wS2.Points.AddXY("2", "0");
+            wS2.Points.AddXY("3", dgv_vac_world[5, numrows].Value.ToString());
+
+
+
+
 
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
