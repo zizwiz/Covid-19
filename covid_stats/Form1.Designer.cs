@@ -79,6 +79,7 @@
             this.cmbobx_world_vac = new System.Windows.Forms.ComboBox();
             this.btn_show_world_vac_data = new System.Windows.Forms.Button();
             this.btn_help = new System.Windows.Forms.Button();
+            this.lbl_Licence = new System.Windows.Forms.Label();
             this.tabcontrol_covid19.SuspendLayout();
             this.tab_world_stats.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -596,6 +597,7 @@
             // 
             // tab_citations
             // 
+            this.tab_citations.Controls.Add(this.lbl_Licence);
             this.tab_citations.Controls.Add(this.lbl_vacinations_citation);
             this.tab_citations.Controls.Add(this.lbl_country_stats_citation);
             this.tab_citations.Controls.Add(this.lbl_who_citation);
@@ -603,7 +605,7 @@
             this.tab_citations.Name = "tab_citations";
             this.tab_citations.Size = new System.Drawing.Size(676, 361);
             this.tab_citations.TabIndex = 3;
-            this.tab_citations.Text = "Citations";
+            this.tab_citations.Text = "Citations and Licence";
             this.tab_citations.UseVisualStyleBackColor = true;
             // 
             // lbl_vacinations_citation
@@ -745,6 +747,15 @@
             this.btn_help.UseVisualStyleBackColor = true;
             this.btn_help.Click += new System.EventHandler(this.btn_help_Click);
             // 
+            // lbl_Licence
+            // 
+            this.lbl_Licence.AutoSize = true;
+            this.lbl_Licence.Location = new System.Drawing.Point(5, 284);
+            this.lbl_Licence.Name = "lbl_Licence";
+            this.lbl_Licence.Size = new System.Drawing.Size(28, 17);
+            this.lbl_Licence.TabIndex = 3;
+            this.lbl_Licence.Text = ".....";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -850,6 +861,7 @@
         private System.Windows.Forms.ComboBox cmbobx_world_vac;
         private System.Windows.Forms.Button btn_show_world_vac_data;
         private System.Windows.Forms.Button btn_help;
+        private System.Windows.Forms.Label lbl_Licence;
     }
 }
 

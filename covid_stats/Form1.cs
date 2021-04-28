@@ -295,6 +295,7 @@ namespace covid_stats
             lbl_who_citation.Text = "WHO coronavirus disease (COVID-19) dashboard. Geneva: World Health Organization, 2020.";
             lbl_country_stats_citation.Text = "United Nations Office for the Coordination of Humanitarian Affairs, Humanitarian Data Exchange";
             lbl_vacinations_citation.Text = "Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8";
+            lbl_Licence.Text = "GNU General Public License v3.0";
         }
 
         private void btn_unverified_help_Click(object sender, EventArgs e)
