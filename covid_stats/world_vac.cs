@@ -351,11 +351,11 @@ namespace covid_stats
 
                 int loc = Array.IndexOf(headings, "location");
                 int dat = Array.IndexOf(headings, "date");
-                int gtot = Array.IndexOf(headings, "total_vaccinations"); //Number doses administered
-                int tot = Array.IndexOf(headings, "people_vaccinated"); //At least one
-                int pop = Array.IndexOf(headings, "people_vaccinated_per_hundred");
-                int tot2 = Array.IndexOf(headings, "people_fully_vaccinated"); //Fully
-                int pop2 = Array.IndexOf(headings, "people_fully_vaccinated_per_hundred");
+                long gtot = Array.IndexOf(headings, "total_vaccinations"); //Number doses administered
+                long tot = Array.IndexOf(headings, "people_vaccinated"); //At least one
+                long pop = Array.IndexOf(headings, "people_vaccinated_per_hundred");
+                long tot2 = Array.IndexOf(headings, "people_fully_vaccinated"); //Fully
+                long pop2 = Array.IndexOf(headings, "people_fully_vaccinated_per_hundred");
 
 
 
@@ -371,20 +371,20 @@ namespace covid_stats
 
                         if (values[r, tot] != "") //Total
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[2].Value = Convert.ToInt32(values[r, tot]); //Total
+                            dgv_vac_world_unverified.Rows[count].Cells[2].Value = Convert.ToInt64(values[r, tot]); //Total
                         }
                         else
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[2].Value = Convert.ToInt32(0);
+                            dgv_vac_world_unverified.Rows[count].Cells[2].Value = Convert.ToInt64(0);
                         }
 
                         if (values[r, tot2] != "") //Fully
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[4].Value = Convert.ToInt32(values[r, tot2]);
+                            dgv_vac_world_unverified.Rows[count].Cells[4].Value = Convert.ToInt64(values[r, tot2]);
                         }
                         else
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[4].Value = Convert.ToInt32(0);
+                            dgv_vac_world_unverified.Rows[count].Cells[4].Value = Convert.ToInt64(0);
                         }
 
                         if (values[r, pop] != "") //Total
@@ -424,12 +424,12 @@ namespace covid_stats
                         dgv_vac_world_unverified.Rows[count - 1].Cells[1].Value = Convert.ToDateTime(values[r, dat]); //Date
                         if (values[r, tot] != "")
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[2].Value = Convert.ToInt32(values[r, tot]); //Total
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[2].Value = Convert.ToInt64(values[r, tot]); //Total
                         }
 
                         if (values[r, tot2] != "")
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[4].Value = Convert.ToInt32(values[r, tot2]); //Total
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[4].Value = Convert.ToInt64(values[r, tot2]); //Total
                         }
                         else
                         {
@@ -454,11 +454,11 @@ namespace covid_stats
 
                         if (values[r, gtot] != "")
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt32(values[r, gtot]); //Total
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt64(values[r, gtot]); //Total
                         }
                         else
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt32(0);
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt64(0);
                         }
                     }
                 }
