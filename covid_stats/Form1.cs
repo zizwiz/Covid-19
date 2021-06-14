@@ -313,5 +313,10 @@ namespace covid_stats
             var f1 = new Help_Form();
             f1.ShowDialog();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.jetbrains.com");
+        }
     }
 }

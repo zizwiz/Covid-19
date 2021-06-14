@@ -36,7 +36,7 @@
     <ApplicationIcon>covid19.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>cs.pfx</AssemblyOriginatorKeyFile>
