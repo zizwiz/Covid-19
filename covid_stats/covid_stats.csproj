@@ -81,6 +81,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="graphs\uk_hosp_graphs.cs" />
+    <Compile Include="graphs\uk_hosp_graphs.Designer.cs" />
     <Compile Include="graphs\vaccine_graphs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +110,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="uk_hospital_data.cs" />
     <Compile Include="utils\convert.cs" />
     <Compile Include="vaccines.cs">
       <SubType>Form</SubType>
@@ -128,6 +131,7 @@
     <EmbeddedResource Include="graphs\Multi_graphs.resx">
       <DependentUpon>Multi_graphs.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="graphs\uk_hosp_graphs.resx" />
     <EmbeddedResource Include="graphs\vaccine_graphs.resx">
       <DependentUpon>vaccine_graphs.cs</DependentUpon>
     </EmbeddedResource>
