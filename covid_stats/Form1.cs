@@ -11,8 +11,8 @@ namespace covid_stats
     public partial class Form1 : Form
     {
         private string[] world_data;
-        long w_population = 7794798739;
-        private long uk_population = 68114457;
+        private long w_population = 7879482612;
+        private long uk_population = 68258533; 
         public Form1()
         {
             InitializeComponent();
@@ -213,6 +213,17 @@ namespace covid_stats
                 get_vac_data_Click();
             }
 
+            //UK hospital Data
+            if (File.Exists("uk_hospitals.csv"))
+            {
+                Populate_UK_Hospital_Grid();
+            }
+            else
+            {
+                get_uk_hospital_data();
+            }
+
+
             //england_vac.csv   n_ireland_vac.csv   scotland_vac.csv    wales_vac.csv  world_vac.csv
             if (File.Exists("who_world_stats.csv")&& File.Exists("who_countries.txt"))
             {
@@ -242,7 +253,7 @@ namespace covid_stats
 
         private void SetVisibility()
         {
-        if ((tabcontrol_covid19.SelectedTab == tab_vaccinations)|| (tabcontrol_covid19.SelectedTab == tab_citations))
+        if ((tabcontrol_covid19.SelectedTab == tab_vaccinations)|| (tabcontrol_covid19.SelectedTab == tab_citations) || (tabcontrol_covid19.SelectedTab == tab_uk_hospital_data))
             {
                 cmbobox_country.Visible = false;
                 label3.Visible = false;
@@ -318,5 +329,7 @@ namespace covid_stats
         {
             System.Diagnostics.Process.Start("http://www.jetbrains.com");
         }
+
+       
     }
 }
