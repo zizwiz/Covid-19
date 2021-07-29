@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -120,25 +119,18 @@ namespace covid_stats
             return values;
         }
 
-        private void SyncFiles()
-        {
-
-
-
-
-        }
-
+       
         private void Populate_Vaccine_Grid()
         {
             int num_rows = 0;
             int num_cols = 0;
             string short_date = "";
 
-            int vac;
-            int dat;
-            int tot;
-            int tot2;
-            int loc;
+            long vac;
+            long dat;
+            long tot;
+            long tot2;
+            long loc;
             string[] headings;
             string[] country_data;
 
@@ -152,8 +144,8 @@ namespace covid_stats
             num_rows = values.GetUpperBound(0) + 1;
             num_cols = ((values.Length) / 2) - 1;
 
-            int value2 = 0;
-            int value = 0;
+            long value2 = 0;
+            long value = 0;
             // Display the data to show we have it.
 
             // Make column headers.
@@ -207,38 +199,38 @@ namespace covid_stats
                 dgv_vac_england.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
                 dgv_vac_england.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
 
-                // dgv_vac_england.Rows[r - 1].Cells[3].Value = Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r, tot2]); //Total 1st
+                // dgv_vac_england.Rows[r - 1].Cells[3].Value = Convert.ToInt64(values[r, tot]) - Convert.ToInt64(values[r, tot2]); //Total 1st
                 
                 value = 0;
-                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                if (values[r, tot] != "") value = Convert.ToInt64(values[r, tot]);
                 dgv_vac_england.Rows[r - 1].Cells[3].Value = value; //Total 1st
                 
 
                 if (r > 1) //work out daily totals
                 {
                     dgv_vac_england.Rows[r - 1].Cells[2].Value =
-                        (Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r - 1, tot]));
+                        (Convert.ToInt64(values[r, tot]) - Convert.ToInt64(values[r - 1, tot]));
                 }
                 else if (r == 1)
                 {
                     dgv_vac_england.Rows[r - 1].Cells[2].Value =
-                        Convert.ToInt32(dgv_vac_england.Rows[r - 1].Cells[3].Value);
+                        Convert.ToInt64(dgv_vac_england.Rows[r - 1].Cells[3].Value);
                 }
 
                 value = 0;
-                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                if (values[r, tot2] != "") value = Convert.ToInt64(values[r, tot2]);
                 dgv_vac_england.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
                     value2 = 0;
-                    if (values[r-1, tot2] != "") value2 = Convert.ToInt32(values[r-1, tot2]);
+                    if (values[r-1, tot2] != "") value2 = Convert.ToInt64(values[r-1, tot2]);
                     dgv_vac_england.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
                     dgv_vac_england.Rows[r - 1].Cells[4].Value =
-                        Convert.ToInt32(dgv_vac_england.Rows[r - 1].Cells[5].Value);
+                        Convert.ToInt64(dgv_vac_england.Rows[r - 1].Cells[5].Value);
                 }
 
 
@@ -315,32 +307,32 @@ namespace covid_stats
                 dgv_vac_scotland.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
 
                 value = 0;
-                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                if (values[r, tot] != "") value = Convert.ToInt64(values[r, tot]);
                 dgv_vac_scotland.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_scotland.Rows[r - 1].Cells[2].Value = (Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r - 1, tot]));
+                    dgv_vac_scotland.Rows[r - 1].Cells[2].Value = (Convert.ToInt64(values[r, tot]) - Convert.ToInt64(values[r - 1, tot]));
                 }
                 else if (r == 1)
                 {
-                    dgv_vac_scotland.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_scotland.Rows[r - 1].Cells[3].Value);
+                    dgv_vac_scotland.Rows[r - 1].Cells[2].Value = Convert.ToInt64(dgv_vac_scotland.Rows[r - 1].Cells[3].Value);
                 }
 
                 value = 0;
-                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                if (values[r, tot2] != "") value = Convert.ToInt64(values[r, tot2]);
                 dgv_vac_scotland.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
                     value2 = 0;
-                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt64(values[r - 1, tot2]);
                     dgv_vac_scotland.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
                     dgv_vac_scotland.Rows[r - 1].Cells[4].Value =
-                        Convert.ToInt32(dgv_vac_scotland.Rows[r - 1].Cells[5].Value);
+                        Convert.ToInt64(dgv_vac_scotland.Rows[r - 1].Cells[5].Value);
                 }
             }
             dgv_vac_scotland.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -414,32 +406,32 @@ namespace covid_stats
                 dgv_vac_wales.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
 
                 value = 0;
-                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                if (values[r, tot] != "") value = Convert.ToInt64(values[r, tot]);
                 dgv_vac_wales.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_wales.Rows[r - 1].Cells[2].Value = (Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r - 1, tot]));
+                    dgv_vac_wales.Rows[r - 1].Cells[2].Value = (Convert.ToInt64(values[r, tot]) - Convert.ToInt64(values[r - 1, tot]));
                 }
                 else if (r == 1)
                 {
-                    dgv_vac_wales.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_wales.Rows[r - 1].Cells[3].Value);
+                    dgv_vac_wales.Rows[r - 1].Cells[2].Value = Convert.ToInt64(dgv_vac_wales.Rows[r - 1].Cells[3].Value);
                 }
 
                 value = 0;
-                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                if (values[r, tot2] != "") value = Convert.ToInt64(values[r, tot2]);
                 dgv_vac_wales.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
                     value2 = 0;
-                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt64(values[r - 1, tot2]);
                     dgv_vac_wales.Rows[r - 1].Cells[4].Value = value - value2;
                 }
                 else if (r == 1)
                 {
                     dgv_vac_wales.Rows[r - 1].Cells[4].Value =
-                        Convert.ToInt32(dgv_vac_wales.Rows[r - 1].Cells[5].Value);
+                        Convert.ToInt64(dgv_vac_wales.Rows[r - 1].Cells[5].Value);
                 }
             }
             dgv_vac_wales.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -513,33 +505,33 @@ namespace covid_stats
                 dgv_vac_n_ireland.Rows[r - 1].Cells[1].Value = values[r, vac]; //Vaccine
 
                 value = 0;
-                if (values[r, tot] != "") value = Convert.ToInt32(values[r, tot]);
+                if (values[r, tot] != "") value = Convert.ToInt64(values[r, tot]);
                 dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value = value; //Total
 
                 if (r > 1) //work out daily totals
                 {
-                    dgv_vac_n_ireland.Rows[r - 1].Cells[2].Value = (Convert.ToInt32(values[r, tot]) - Convert.ToInt32(values[r - 1, tot]));
+                    dgv_vac_n_ireland.Rows[r - 1].Cells[2].Value = (Convert.ToInt64(values[r, tot]) - Convert.ToInt64(values[r - 1, tot]));
                 }
                 else if (r == 1)
                 {
-                    dgv_vac_n_ireland.Rows[r - 1].Cells[2].Value = Convert.ToInt32(dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value);
+                    dgv_vac_n_ireland.Rows[r - 1].Cells[2].Value = Convert.ToInt64(dgv_vac_n_ireland.Rows[r - 1].Cells[3].Value);
                 }
 
                 value = 0;
-                if (values[r, tot2] != "") value = Convert.ToInt32(values[r, tot2]);
+                if (values[r, tot2] != "") value = Convert.ToInt64(values[r, tot2]);
                 dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value = value; //Total 2nd
 
                 if (r > 1) //work out daily totals
                 {
                     value2 = 0;
-                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt32(values[r - 1, tot2]);
+                    if (values[r - 1, tot2] != "") value2 = Convert.ToInt64(values[r - 1, tot2]);
                     dgv_vac_n_ireland.Rows[r - 1].Cells[4].Value = value - value2;
 
                 }
                 else if (r == 1)
                 {
                     dgv_vac_n_ireland.Rows[r - 1].Cells[4].Value =
-                        Convert.ToInt32(dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value);
+                        Convert.ToInt64(dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value);
                 }
             }
             dgv_vac_n_ireland.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -629,7 +621,7 @@ namespace covid_stats
                         }
                         else
                         {
-                            dgv_vac_uk.Rows[count].Cells[2].Value = Convert.ToInt32(fields[tot]);
+                            dgv_vac_uk.Rows[count].Cells[2].Value = Convert.ToInt64(fields[tot]);
                         }
 
 
@@ -639,7 +631,7 @@ namespace covid_stats
                         }
                         else
                         {
-                            dgv_vac_uk.Rows[count].Cells[5].Value = Convert.ToInt32(fields[tot2]);
+                            dgv_vac_uk.Rows[count].Cells[5].Value = Convert.ToInt64(fields[tot2]);
                         }
 
 
@@ -660,27 +652,27 @@ namespace covid_stats
                 if (t > 0) //work out daily totals
                 {
                     dgv_vac_uk.Rows[t].Cells[1].Value =
-                        (Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[2].Value) -
-                         Convert.ToInt32(dgv_vac_uk.Rows[t - 1].Cells[2].Value));
+                        (Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[2].Value) -
+                         Convert.ToInt64(dgv_vac_uk.Rows[t - 1].Cells[2].Value));
 
                     dgv_vac_uk.Rows[t].Cells[4].Value =
-                        (Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[5].Value) -
-                         Convert.ToInt32(dgv_vac_uk.Rows[t - 1].Cells[5].Value));
+                        (Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value) -
+                         Convert.ToInt64(dgv_vac_uk.Rows[t - 1].Cells[5].Value));
                 }
                 else if (t == 0)
                 {
-                    dgv_vac_uk.Rows[t].Cells[1].Value = Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[2].Value);
+                    dgv_vac_uk.Rows[t].Cells[1].Value = Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[2].Value);
 
-                    dgv_vac_uk.Rows[t].Cells[4].Value = Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[5].Value);
+                    dgv_vac_uk.Rows[t].Cells[4].Value = Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value);
                 }
 
                 //work out percentages
                 dgv_vac_uk.Rows[t].Cells[3].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[2].Value)) * 100) / uk_population)
+                    (((float)(Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[2].Value)) * 100) / uk_population)
                     .ToString("0.0000") + "%";
 
                 dgv_vac_uk.Rows[t].Cells[6].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_uk.Rows[t].Cells[5].Value)) * 100) / uk_population)
+                    (((float)(Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value)) * 100) / uk_population)
                     .ToString("0.0000") + "%";
 
             }
@@ -769,7 +761,7 @@ namespace covid_stats
                     {
                         dgv_vac_world.Rows.Add();
                         dgv_vac_world.Rows[count].Cells[0].Value = Convert.ToDateTime(fields[dat]);
-                       // dgv_vac_world.Rows[count].Cells[2].Value = Convert.ToInt32(fields[tot]);
+                       // dgv_vac_world.Rows[count].Cells[2].Value = Convert.ToInt64(fields[tot]);
 
                         if (fields[tot] == "")
                         {
@@ -777,7 +769,7 @@ namespace covid_stats
                         }
                         else
                         {
-                            dgv_vac_world.Rows[count].Cells[2].Value = Convert.ToInt32(fields[tot]);
+                            dgv_vac_world.Rows[count].Cells[2].Value = Convert.ToInt64(fields[tot]);
                         }
 
                         if (fields[tot2] == "")
@@ -786,7 +778,7 @@ namespace covid_stats
                         }
                         else
                         {
-                            dgv_vac_world.Rows[count].Cells[5].Value = Convert.ToInt32(fields[tot2]);
+                            dgv_vac_world.Rows[count].Cells[5].Value = Convert.ToInt64(fields[tot2]);
                         }
 
 
@@ -807,27 +799,27 @@ namespace covid_stats
                 if (t > 0) //work out daily totals
                 {
                     dgv_vac_world.Rows[t].Cells[1].Value =
-                        (Convert.ToInt32(dgv_vac_world.Rows[t].Cells[2].Value) -
-                         Convert.ToInt32(dgv_vac_world.Rows[t - 1].Cells[2].Value));
+                        (Convert.ToInt64(dgv_vac_world.Rows[t].Cells[2].Value) -
+                         Convert.ToInt64(dgv_vac_world.Rows[t - 1].Cells[2].Value));
 
                     dgv_vac_world.Rows[t].Cells[4].Value =
-                        (Convert.ToInt32(dgv_vac_world.Rows[t].Cells[5].Value) -
-                         Convert.ToInt32(dgv_vac_world.Rows[t - 1].Cells[5].Value));
+                        (Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value) -
+                         Convert.ToInt64(dgv_vac_world.Rows[t - 1].Cells[5].Value));
                 }
                 else if (t == 0)
                 {
-                    dgv_vac_world.Rows[t].Cells[1].Value = Convert.ToInt32(dgv_vac_world.Rows[t].Cells[2].Value);
+                    dgv_vac_world.Rows[t].Cells[1].Value = Convert.ToInt64(dgv_vac_world.Rows[t].Cells[2].Value);
 
-                    dgv_vac_world.Rows[t].Cells[4].Value = Convert.ToInt32(dgv_vac_world.Rows[t].Cells[5].Value);
+                    dgv_vac_world.Rows[t].Cells[4].Value = Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value);
                 }
 
                 //work out percentages
                 dgv_vac_world.Rows[t].Cells[3].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_world.Rows[t].Cells[2].Value)) * 100) / w_population)
+                    (((float)(Convert.ToInt64(dgv_vac_world.Rows[t].Cells[2].Value)) * 100) / w_population)
                     .ToString("0.0000") + "%";
 
                 dgv_vac_world.Rows[t].Cells[6].Value =
-                    (((float)(Convert.ToInt32(dgv_vac_world.Rows[t].Cells[5].Value)) * 100) / w_population)
+                    (((float)(Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value)) * 100) / w_population)
                     .ToString("0.0000") + "%";
 
             }
@@ -952,11 +944,11 @@ namespace covid_stats
             S1["DoughnutRadius"] = "41"; // leave just a little space!
             S2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
 
-            long o_remaining_number = 68085031 - (int)dgv_vac_uk[2, numrows].Value;
+            long o_remaining_number = 68085031 - (long)dgv_vac_uk[2, numrows].Value;
             S1.Points.AddXY("1", o_remaining_number);
             S1.Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString());
 
-            long i_remaining_number = 68085031 - (int)dgv_vac_uk[5, numrows].Value;
+            long i_remaining_number = 68085031 - (long)dgv_vac_uk[5, numrows].Value;
             S2.Points.AddXY("1", i_remaining_number);
             S2.Points.AddXY("2", "0");
             S2.Points.AddXY("3", dgv_vac_uk[5, numrows].Value.ToString());
@@ -1030,11 +1022,11 @@ namespace covid_stats
             wS1["DoughnutRadius"] = "41"; // leave just a little space!
             wS2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
 
-            long wo_remaining_number = 7861686173 - (int)dgv_vac_world[2, numrows].Value;
+            long wo_remaining_number = 7861686173 - (long)dgv_vac_world[2, numrows].Value;
             wS1.Points.AddXY("1", wo_remaining_number);
             wS1.Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString());
 
-            long wi_remaining_number = 7861686173 - (int)dgv_vac_world[5, numrows].Value;
+            long wi_remaining_number = 7861686173 - (long)dgv_vac_world[5, numrows].Value;
             wS2.Points.AddXY("1", wi_remaining_number);
             wS2.Points.AddXY("2", "0");
             wS2.Points.AddXY("3", dgv_vac_world[5, numrows].Value.ToString());
@@ -1046,7 +1038,7 @@ namespace covid_stats
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
             /// ///////////////////////////////////
-            int remaining_number = 52800000 - (int)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
+            long remaining_number = 52800000 - (long)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
 
             numrows = (dgv_vac_uk.RowCount) - 1;
             G2.chrt_uk_target.Legends.Clear();
