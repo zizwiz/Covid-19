@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -134,6 +135,69 @@ namespace covid_stats.graphs
                 {
                     var yVal = result.ChartArea.AxisY.PixelPositionToValue(pos.Y);
                     tooltip.Show(((int)yVal).ToString(), chrt_deaths, pos.X, pos.Y - 15);
+                }
+            }
+        }
+
+        private void btn_exit_graphs_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btn_save_graphs_as_image_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Image Files|*.png|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
+            saveFileDialog.Title = "Save Chart Image As file";
+            saveFileDialog.DefaultExt = ".png";
+            saveFileDialog.FileName = "Sample.png";
+
+            DialogResult result = saveFileDialog.ShowDialog();
+            saveFileDialog.RestoreDirectory = true;
+
+            if (result == DialogResult.OK && saveFileDialog.FileName != "")
+            {
+                try
+                {
+
+                    var imgFormats = new Dictionary<string, ChartImageFormat>()
+                    {
+                        {".bmp", ChartImageFormat.Bmp},
+                        {".gif", ChartImageFormat.Gif},
+                        {".jpg", ChartImageFormat.Jpeg},
+                        {".jpeg", ChartImageFormat.Jpeg},
+                        {".png", ChartImageFormat.Png},
+                        {".tiff", ChartImageFormat.Tiff},
+                    };
+                    var fileExt = System.IO.Path.GetExtension(saveFileDialog.FileName).ToString().ToLower();
+
+                    if (imgFormats.ContainsKey(fileExt))
+                    {
+                        if (Tab_graphs.SelectedTab.Name == "tabpage_testing")
+                        {
+                            chrt_Daily.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
+                        }
+                        else if (Tab_graphs.SelectedTab.Name == "tabpage_deaths")
+                        {
+                            chrt_deaths.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
+                        }
+                        else if (Tab_graphs.SelectedTab.Name == "tabPage_casesper100k")
+                        {
+                            chrt_cases_100k.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
+                        }
+                        else if (Tab_graphs.SelectedTab.Name == "tabPage_deaths100k")
+                        {
+                            chrt_deaths_100k.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception(String.Format("Only image formats '{0}' supported", string.Join(", ", imgFormats.Keys)));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

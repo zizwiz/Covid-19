@@ -42,6 +42,14 @@
             this.chrt_num_in_hosp = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tab_new_admissions = new System.Windows.Forms.TabPage();
             this.chrt_new_admissions = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btn_save_hospt_graph_as_image = new System.Windows.Forms.Button();
+            this.btn_exit_hosp_graph = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabcntr_uk_hosp.SuspendLayout();
@@ -49,6 +57,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.chrt_num_in_hosp)).BeginInit();
             this.tab_new_admissions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_new_admissions)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -66,7 +80,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tabcntr_uk_hosp);
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
@@ -81,7 +95,7 @@
             this.tabcntr_uk_hosp.Location = new System.Drawing.Point(0, 0);
             this.tabcntr_uk_hosp.Name = "tabcntr_uk_hosp";
             this.tabcntr_uk_hosp.SelectedIndex = 0;
-            this.tabcntr_uk_hosp.Size = new System.Drawing.Size(985, 750);
+            this.tabcntr_uk_hosp.Size = new System.Drawing.Size(979, 689);
             this.tabcntr_uk_hosp.TabIndex = 0;
             // 
             // tab_num_in_hospital
@@ -90,7 +104,7 @@
             this.tab_num_in_hospital.Location = new System.Drawing.Point(4, 25);
             this.tab_num_in_hospital.Name = "tab_num_in_hospital";
             this.tab_num_in_hospital.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_num_in_hospital.Size = new System.Drawing.Size(977, 721);
+            this.tab_num_in_hospital.Size = new System.Drawing.Size(971, 660);
             this.tab_num_in_hospital.TabIndex = 0;
             this.tab_num_in_hospital.Text = "Number in Hospital";
             this.tab_num_in_hospital.UseVisualStyleBackColor = true;
@@ -111,7 +125,7 @@
             series1.Name = "NumInHosp";
             series1.YValuesPerPoint = 2;
             this.chrt_num_in_hosp.Series.Add(series1);
-            this.chrt_num_in_hosp.Size = new System.Drawing.Size(971, 715);
+            this.chrt_num_in_hosp.Size = new System.Drawing.Size(965, 654);
             this.chrt_num_in_hosp.TabIndex = 2;
             this.chrt_num_in_hosp.Text = "chart1";
             this.chrt_num_in_hosp.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chrt_num_in_hosp_MouseMove);
@@ -122,7 +136,7 @@
             this.tab_new_admissions.Location = new System.Drawing.Point(4, 25);
             this.tab_new_admissions.Name = "tab_new_admissions";
             this.tab_new_admissions.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_new_admissions.Size = new System.Drawing.Size(977, 721);
+            this.tab_new_admissions.Size = new System.Drawing.Size(971, 660);
             this.tab_new_admissions.TabIndex = 1;
             this.tab_new_admissions.Text = "New Admissions";
             this.tab_new_admissions.UseVisualStyleBackColor = true;
@@ -143,10 +157,100 @@
             series2.Name = "NewAdmissions";
             series2.YValuesPerPoint = 2;
             this.chrt_new_admissions.Series.Add(series2);
-            this.chrt_new_admissions.Size = new System.Drawing.Size(971, 715);
+            this.chrt_new_admissions.Size = new System.Drawing.Size(965, 654);
             this.chrt_new_admissions.TabIndex = 3;
             this.chrt_new_admissions.Text = "chart1";
             this.chrt_new_admissions.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chrt_new_admissions_MouseMove);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(985, 750);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tabcntr_uk_hosp);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(979, 689);
+            this.panel2.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.tableLayoutPanel3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 698);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(979, 49);
+            this.panel3.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.panel4, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.panel5, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(979, 49);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btn_save_hospt_graph_as_image);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(483, 43);
+            this.panel4.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.btn_exit_hosp_graph);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(492, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(484, 43);
+            this.panel5.TabIndex = 1;
+            // 
+            // btn_save_hospt_graph_as_image
+            // 
+            this.btn_save_hospt_graph_as_image.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_save_hospt_graph_as_image.Location = new System.Drawing.Point(172, 3);
+            this.btn_save_hospt_graph_as_image.Name = "btn_save_hospt_graph_as_image";
+            this.btn_save_hospt_graph_as_image.Size = new System.Drawing.Size(138, 37);
+            this.btn_save_hospt_graph_as_image.TabIndex = 0;
+            this.btn_save_hospt_graph_as_image.Text = "Save as Image";
+            this.btn_save_hospt_graph_as_image.UseVisualStyleBackColor = true;
+            this.btn_save_hospt_graph_as_image.Click += new System.EventHandler(this.btn_save_hospt_graph_as_image_Click);
+            // 
+            // btn_exit_hosp_graph
+            // 
+            this.btn_exit_hosp_graph.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_exit_hosp_graph.Location = new System.Drawing.Point(187, 3);
+            this.btn_exit_hosp_graph.Name = "btn_exit_hosp_graph";
+            this.btn_exit_hosp_graph.Size = new System.Drawing.Size(110, 37);
+            this.btn_exit_hosp_graph.TabIndex = 1;
+            this.btn_exit_hosp_graph.Text = "Exit";
+            this.btn_exit_hosp_graph.UseVisualStyleBackColor = true;
+            this.btn_exit_hosp_graph.Click += new System.EventHandler(this.btn_exit_hosp_graph_Click);
             // 
             // uk_hosp_graphs
             // 
@@ -165,6 +269,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.chrt_num_in_hosp)).EndInit();
             this.tab_new_admissions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chrt_new_admissions)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -178,5 +288,13 @@
         private System.Windows.Forms.TabPage tab_new_admissions;
         public System.Windows.Forms.DataVisualization.Charting.Chart chrt_num_in_hosp;
         public System.Windows.Forms.DataVisualization.Charting.Chart chrt_new_admissions;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btn_save_hospt_graph_as_image;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btn_exit_hosp_graph;
     }
 }
