@@ -42,6 +42,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Graphs));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.Tab_graphs = new System.Windows.Forms.TabControl();
             this.tabpage_testing = new System.Windows.Forms.TabPage();
             this.chrt_Daily = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -51,15 +53,15 @@
             this.chrt_cases_100k = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage_deaths100k = new System.Windows.Forms.TabPage();
             this.chrt_deaths_100k = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btn_save_graphs_as_image = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btn_exit_graphs = new System.Windows.Forms.Button();
-            this.btn_save_graphs_as_image = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.Tab_graphs.SuspendLayout();
             this.tabpage_testing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_Daily)).BeginInit();
@@ -69,8 +71,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chrt_cases_100k)).BeginInit();
             this.tabPage_deaths100k.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_deaths_100k)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -86,6 +86,30 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(991, 756);
             this.panel1.TabIndex = 1;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(991, 756);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.Tab_graphs);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(985, 695);
+            this.panel2.TabIndex = 0;
             // 
             // Tab_graphs
             // 
@@ -233,30 +257,6 @@
             this.chrt_deaths_100k.Text = "chart1";
             this.chrt_deaths_100k.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chrt_deaths_100k_MouseMove);
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(991, 756);
-            this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.Tab_graphs);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(985, 695);
-            this.panel2.TabIndex = 0;
-            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel2);
@@ -290,6 +290,18 @@
             this.panel4.Size = new System.Drawing.Size(486, 43);
             this.panel4.TabIndex = 0;
             // 
+            // btn_save_graphs_as_image
+            // 
+            this.btn_save_graphs_as_image.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_save_graphs_as_image.Location = new System.Drawing.Point(162, 1);
+            this.btn_save_graphs_as_image.Name = "btn_save_graphs_as_image";
+            this.btn_save_graphs_as_image.Size = new System.Drawing.Size(163, 40);
+            this.btn_save_graphs_as_image.TabIndex = 1;
+            this.btn_save_graphs_as_image.Text = "Save as Image";
+            this.btn_save_graphs_as_image.UseVisualStyleBackColor = true;
+            this.btn_save_graphs_as_image.Click += new System.EventHandler(this.btn_save_graphs_as_image_Click);
+            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.btn_exit_graphs);
@@ -301,6 +313,8 @@
             // 
             // btn_exit_graphs
             // 
+            this.btn_exit_graphs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_exit_graphs.Location = new System.Drawing.Point(192, 1);
             this.btn_exit_graphs.Name = "btn_exit_graphs";
             this.btn_exit_graphs.Size = new System.Drawing.Size(102, 40);
@@ -308,16 +322,6 @@
             this.btn_exit_graphs.Text = "Exit";
             this.btn_exit_graphs.UseVisualStyleBackColor = true;
             this.btn_exit_graphs.Click += new System.EventHandler(this.btn_exit_graphs_Click);
-            // 
-            // btn_save_graphs_as_image
-            // 
-            this.btn_save_graphs_as_image.Location = new System.Drawing.Point(162, 1);
-            this.btn_save_graphs_as_image.Name = "btn_save_graphs_as_image";
-            this.btn_save_graphs_as_image.Size = new System.Drawing.Size(163, 40);
-            this.btn_save_graphs_as_image.TabIndex = 1;
-            this.btn_save_graphs_as_image.Text = "Save as Image";
-            this.btn_save_graphs_as_image.UseVisualStyleBackColor = true;
-            this.btn_save_graphs_as_image.Click += new System.EventHandler(this.btn_save_graphs_as_image_Click);
             // 
             // Graphs
             // 
@@ -331,6 +335,8 @@
             this.Text = "Covid-19 Graphs";
             this.Load += new System.EventHandler(this.Graphs_Load);
             this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.Tab_graphs.ResumeLayout(false);
             this.tabpage_testing.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chrt_Daily)).EndInit();
@@ -340,8 +346,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chrt_cases_100k)).EndInit();
             this.tabPage_deaths100k.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chrt_deaths_100k)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
