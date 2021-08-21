@@ -235,9 +235,23 @@ namespace covid_stats
                 get_world_stats();
             }
 
-            MakeCountryLists();
             SetVisibility();
             AddCitations();
+            try
+            {
+                if (!File.Exists("world_vac_countries.csv"))
+                {
+                    const string url =
+                        "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/locations.csv";
+                    DownloadFile(url, "world_vac_countries.csv");
+                }
+            }
+            catch (Exception exception)
+            {
+                //not connected to internet so do nothing
+            }
+            
+            MakeCountryLists();
         }
 
         private void cmbobox_country_SelectedIndexChanged(object sender, EventArgs e)
