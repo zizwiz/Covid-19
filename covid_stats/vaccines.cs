@@ -131,6 +131,7 @@ namespace covid_stats
             long tot;
             long tot2;
             long loc;
+            long boost;
             string[] headings;
             string[] country_data;
 
@@ -181,6 +182,17 @@ namespace covid_stats
             dgv_vac_england.Columns["Total 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_england.Columns["Total 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_england.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_england.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_england.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_england.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_england.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_england.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_england.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_england.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            
             country_data = File.ReadAllLines("england_vac.csv");
             //get the item number in the array.
             headings = Regex.Split(country_data[0], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -191,6 +203,7 @@ namespace covid_stats
            // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
 
             // Add the data.
             for (int r = 1; r < num_rows; r++)
@@ -233,6 +246,21 @@ namespace covid_stats
                         Convert.ToInt64(dgv_vac_england.Rows[r - 1].Cells[5].Value);
                 }
 
+                value = 0;
+                if (values[r, boost] != "") value = Convert.ToInt64(values[r, boost]);
+                dgv_vac_england.Rows[r - 1].Cells[7].Value = value; //Total boost
+
+                if (r > 1) //work out daily totals
+                {
+                    value2 = 0;
+                    if (values[r-1, boost] != "") value2 = Convert.ToInt64(values[r-1, boost]);
+                    dgv_vac_england.Rows[r - 1].Cells[6].Value = value - value2;
+                }
+                else if (r == 1)
+                {
+                    dgv_vac_england.Rows[r - 1].Cells[6].Value =
+                        Convert.ToInt64(dgv_vac_england.Rows[r - 1].Cells[7].Value);
+                }
 
             }
 
@@ -242,6 +270,8 @@ namespace covid_stats
             dgv_vac_england.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_england.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_england.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_england.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_england.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgv_vac_england.FirstDisplayedScrollingRowIndex = dgv_vac_england.RowCount - 1;
             dgv_vac_england.RowHeadersVisible = false;
@@ -286,6 +316,15 @@ namespace covid_stats
             dgv_vac_scotland.Columns["Total 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_scotland.Columns["Total 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_scotland.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_scotland.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_scotland.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_scotland.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_scotland.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_scotland.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_scotland.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_scotland.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
             country_data = File.ReadAllLines("scotland_vac.csv");
             //get the item number in the array.
@@ -297,6 +336,8 @@ namespace covid_stats
             // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
+
 
             // Add the data.
             for (int r = 1; r < num_rows; r++)
@@ -334,6 +375,22 @@ namespace covid_stats
                     dgv_vac_scotland.Rows[r - 1].Cells[4].Value =
                         Convert.ToInt64(dgv_vac_scotland.Rows[r - 1].Cells[5].Value);
                 }
+                
+                value = 0;
+                if (values[r, boost] != "") value = Convert.ToInt64(values[r, boost]);
+                dgv_vac_scotland.Rows[r - 1].Cells[7].Value = value; //Total boost
+
+                if (r > 1) //work out daily totals
+                {
+                    value2 = 0;
+                    if (values[r-1, boost] != "") value2 = Convert.ToInt64(values[r-1, boost]);
+                    dgv_vac_scotland.Rows[r - 1].Cells[6].Value = value - value2;
+                }
+                else if (r == 1)
+                {
+                    dgv_vac_scotland.Rows[r - 1].Cells[6].Value =
+                        Convert.ToInt64(dgv_vac_scotland.Rows[r - 1].Cells[7].Value);
+                }
             }
             dgv_vac_scotland.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_scotland.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -341,6 +398,8 @@ namespace covid_stats
             dgv_vac_scotland.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_scotland.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_scotland.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_scotland.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_scotland.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgv_vac_scotland.FirstDisplayedScrollingRowIndex = dgv_vac_scotland.RowCount - 1;
             dgv_vac_scotland.RowHeadersVisible = false;
@@ -385,6 +444,15 @@ namespace covid_stats
             dgv_vac_wales.Columns["Total 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_wales.Columns["Total 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_wales.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_wales.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_wales.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_wales.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_wales.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_wales.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_wales.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_wales.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
             country_data = File.ReadAllLines("wales_vac.csv");
             //get the item number in the array.
@@ -396,6 +464,7 @@ namespace covid_stats
             // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
 
             // Add the data.
             for (int r = 1; r < num_rows; r++)
@@ -433,6 +502,22 @@ namespace covid_stats
                     dgv_vac_wales.Rows[r - 1].Cells[4].Value =
                         Convert.ToInt64(dgv_vac_wales.Rows[r - 1].Cells[5].Value);
                 }
+                
+                value = 0;
+                if (values[r, boost] != "") value = Convert.ToInt64(values[r, boost]);
+                dgv_vac_wales.Rows[r - 1].Cells[7].Value = value; //Total boost
+
+                if (r > 1) //work out daily totals
+                {
+                    value2 = 0;
+                    if (values[r-1, boost] != "") value2 = Convert.ToInt64(values[r-1, boost]);
+                    dgv_vac_wales.Rows[r - 1].Cells[6].Value = value - value2;
+                }
+                else if (r == 1)
+                {
+                    dgv_vac_wales.Rows[r - 1].Cells[6].Value =
+                        Convert.ToInt64(dgv_vac_wales.Rows[r - 1].Cells[7].Value);
+                }
             }
             dgv_vac_wales.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_wales.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -440,6 +525,8 @@ namespace covid_stats
             dgv_vac_wales.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_wales.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_wales.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_wales.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_wales.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgv_vac_wales.FirstDisplayedScrollingRowIndex = dgv_vac_wales.RowCount - 1;
             dgv_vac_wales.RowHeadersVisible = false;
@@ -484,6 +571,16 @@ namespace covid_stats
             dgv_vac_n_ireland.Columns["Total 2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_n_ireland.Columns["Total 2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_n_ireland.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_n_ireland.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_n_ireland.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_n_ireland.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_n_ireland.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_n_ireland.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_n_ireland.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_n_ireland.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
 
             country_data = File.ReadAllLines("n_ireland_vac.csv");
             //get the item number in the array.
@@ -495,6 +592,8 @@ namespace covid_stats
             // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
+
 
             // Add the data.
             for (int r = 1; r < num_rows; r++)
@@ -533,6 +632,22 @@ namespace covid_stats
                     dgv_vac_n_ireland.Rows[r - 1].Cells[4].Value =
                         Convert.ToInt64(dgv_vac_n_ireland.Rows[r - 1].Cells[5].Value);
                 }
+                
+                value = 0;
+                if (values[r, boost] != "") value = Convert.ToInt64(values[r, boost]);
+                dgv_vac_n_ireland.Rows[r - 1].Cells[7].Value = value; //Total boost
+
+                if (r > 1) //work out daily totals
+                {
+                    value2 = 0;
+                    if (values[r-1, boost] != "") value2 = Convert.ToInt64(values[r-1, boost]);
+                    dgv_vac_n_ireland.Rows[r - 1].Cells[6].Value = value - value2;
+                }
+                else if (r == 1)
+                {
+                    dgv_vac_n_ireland.Rows[r - 1].Cells[6].Value =
+                        Convert.ToInt64(dgv_vac_n_ireland.Rows[r - 1].Cells[7].Value);
+                }
             }
             dgv_vac_n_ireland.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_n_ireland.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -540,6 +655,8 @@ namespace covid_stats
             dgv_vac_n_ireland.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_n_ireland.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_n_ireland.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_n_ireland.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_n_ireland.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
             dgv_vac_n_ireland.FirstDisplayedScrollingRowIndex = dgv_vac_n_ireland.RowCount - 1;
@@ -590,7 +707,21 @@ namespace covid_stats
             dgv_vac_uk.Columns["Percentage Cover2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_uk.Columns["Percentage Cover2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_uk.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_uk.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_uk.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_uk.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_uk.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_uk.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_uk.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_uk.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_uk.Columns.Add("boost1 Cover", "Boost1 % Coverage");
+            dgv_vac_uk.Columns["boost1 Cover"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_uk.Columns["boost1 Cover"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            
             world_data = File.ReadAllLines("world_vac.csv");
             //get the item number in the array.
             headings = Regex.Split(world_data[0], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
@@ -601,6 +732,8 @@ namespace covid_stats
             // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
+
 
             int count = 0;
             //location,iso_code,date,total_vaccinations,people_vaccinated,people_fully_vaccinated,daily_vaccinations_raw,daily_vaccinations,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,daily_vaccinations_per_million
@@ -634,7 +767,14 @@ namespace covid_stats
                             dgv_vac_uk.Rows[count].Cells[5].Value = Convert.ToInt64(fields[tot2]);
                         }
 
-
+                        if (fields[boost] == "")
+                        {
+                            dgv_vac_uk.Rows[count].Cells[8].Value = 0;
+                        }
+                        else
+                        {
+                            dgv_vac_uk.Rows[count].Cells[8].Value = Convert.ToInt64(fields[boost]);
+                        }
                         count++;
                     }
                 }
@@ -658,12 +798,18 @@ namespace covid_stats
                     dgv_vac_uk.Rows[t].Cells[4].Value =
                         (Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value) -
                          Convert.ToInt64(dgv_vac_uk.Rows[t - 1].Cells[5].Value));
+                    
+                    dgv_vac_uk.Rows[t].Cells[7].Value =
+                        (Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[8].Value) -
+                         Convert.ToInt64(dgv_vac_uk.Rows[t - 1].Cells[8].Value));
                 }
                 else if (t == 0)
                 {
                     dgv_vac_uk.Rows[t].Cells[1].Value = Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[2].Value);
 
                     dgv_vac_uk.Rows[t].Cells[4].Value = Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value);
+                    
+                    dgv_vac_uk.Rows[t].Cells[7].Value = Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[8].Value);
                 }
 
                 //work out percentages
@@ -673,6 +819,10 @@ namespace covid_stats
 
                 dgv_vac_uk.Rows[t].Cells[6].Value =
                     (((float)(Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[5].Value)) * 100) / uk_population)
+                    .ToString("0.0000") + "%";
+                
+                dgv_vac_uk.Rows[t].Cells[9].Value =
+                    (((float)(Convert.ToInt64(dgv_vac_uk.Rows[t].Cells[8].Value)) * 100) / uk_population)
                     .ToString("0.0000") + "%";
 
             }
@@ -684,6 +834,9 @@ namespace covid_stats
             dgv_vac_uk.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_uk.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_uk.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_uk.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_uk.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_uk.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgv_vac_uk.FirstDisplayedScrollingRowIndex = dgv_vac_uk.RowCount - 1;
 
@@ -737,6 +890,19 @@ namespace covid_stats
             dgv_vac_world.Columns["Percentage Cover2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_world.Columns["Percentage Cover2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
+            dgv_vac_world.Columns.Add("last_boost1", "New 1st Boost");
+            dgv_vac_world.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_world.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_world.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_world.Columns.Add("boost1", "Tot 1st Boost");
+            dgv_vac_world.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_vac_world.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_world.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+            dgv_vac_world.Columns.Add("boost1 Cover", "Boost1 % Coverage");
+            dgv_vac_world.Columns["boost1 Cover"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_vac_world.Columns["boost1 Cover"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
             world_data = File.ReadAllLines("world_vac.csv");
             //get the item number in the array.
@@ -748,6 +914,8 @@ namespace covid_stats
             // tot = Array.IndexOf(headings, "total_vaccinations");
             tot = Array.IndexOf(headings, "people_vaccinated");
             tot2 = Array.IndexOf(headings, "people_fully_vaccinated");
+            boost = Array.IndexOf(headings, "total_boosters");
+
 
             count = 0;
 
@@ -780,6 +948,15 @@ namespace covid_stats
                         {
                             dgv_vac_world.Rows[count].Cells[5].Value = Convert.ToInt64(fields[tot2]);
                         }
+                        
+                        if (fields[boost] == "")
+                        {
+                            dgv_vac_world.Rows[count].Cells[8].Value = 0;
+                        }
+                        else
+                        {
+                            dgv_vac_world.Rows[count].Cells[8].Value = Convert.ToInt64(fields[boost]);
+                        }
 
 
                         count++;
@@ -805,12 +982,18 @@ namespace covid_stats
                     dgv_vac_world.Rows[t].Cells[4].Value =
                         (Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value) -
                          Convert.ToInt64(dgv_vac_world.Rows[t - 1].Cells[5].Value));
+                    
+                    dgv_vac_world.Rows[t].Cells[7].Value =
+                        (Convert.ToInt64(dgv_vac_world.Rows[t].Cells[8].Value) -
+                         Convert.ToInt64(dgv_vac_world.Rows[t - 1].Cells[8].Value));
                 }
                 else if (t == 0)
                 {
                     dgv_vac_world.Rows[t].Cells[1].Value = Convert.ToInt64(dgv_vac_world.Rows[t].Cells[2].Value);
 
                     dgv_vac_world.Rows[t].Cells[4].Value = Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value);
+                    
+                    dgv_vac_world.Rows[t].Cells[7].Value = Convert.ToInt64(dgv_vac_world.Rows[t].Cells[8].Value);
                 }
 
                 //work out percentages
@@ -820,6 +1003,10 @@ namespace covid_stats
 
                 dgv_vac_world.Rows[t].Cells[6].Value =
                     (((float)(Convert.ToInt64(dgv_vac_world.Rows[t].Cells[5].Value)) * 100) / w_population)
+                    .ToString("0.0000") + "%";
+                
+                dgv_vac_world.Rows[t].Cells[9].Value =
+                    (((float)(Convert.ToInt64(dgv_vac_world.Rows[t].Cells[8].Value)) * 100) / w_population)
                     .ToString("0.0000") + "%";
 
             }
@@ -831,6 +1018,9 @@ namespace covid_stats
             dgv_vac_world.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_world.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_vac_world.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_world.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_world.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_vac_world.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgv_vac_world.FirstDisplayedScrollingRowIndex = dgv_vac_world.RowCount - 1;
 
@@ -850,6 +1040,7 @@ namespace covid_stats
             {
                 G2.chrt_scotland_vac.Series["Scotland"].Points.Add(Convert.ToDouble(dgv_vac_scotland["Total", counter].Value));
                 G2.chrt_scotland_vac.Series["Scotland_fully"].Points.Add(Convert.ToDouble(dgv_vac_scotland["Total 2", counter].Value));
+                G2.chrt_scotland_vac.Series["Scotland_Boost"].Points.Add(Convert.ToDouble(dgv_vac_scotland["boost1", counter].Value));
                 G2.chrt_scotland_vac.Series["Scotland"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_scotland["Date", counter].Value).ToString("d");
                 
                 counter++;
@@ -860,6 +1051,7 @@ namespace covid_stats
             {
                 G2.chrt_england_vac.Series["England"].Points.Add(Convert.ToDouble(dgv_vac_england["Total", counter].Value));
                 G2.chrt_england_vac.Series["England_fully"].Points.Add(Convert.ToDouble(dgv_vac_england["Total 2", counter].Value));
+                G2.chrt_england_vac.Series["England_Boost"].Points.Add(Convert.ToDouble(dgv_vac_england["boost1", counter].Value));
                 G2.chrt_england_vac.Series["England"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_england["Date", counter].Value).ToString("d");
 
                 counter++;
@@ -870,6 +1062,7 @@ namespace covid_stats
             {
                 G2.chrt_n_ireland_vac.Series["N. Ireland"].Points.Add(Convert.ToDouble(dgv_vac_n_ireland["Total", counter].Value));
                 G2.chrt_n_ireland_vac.Series["N. Ireland_fully"].Points.Add(Convert.ToDouble(dgv_vac_n_ireland["Total 2", counter].Value));
+                G2.chrt_n_ireland_vac.Series["N.Ireland_Boost"].Points.Add(Convert.ToDouble(dgv_vac_n_ireland["boost1", counter].Value));
                 G2.chrt_n_ireland_vac.Series["N. Ireland"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_n_ireland["Date", counter].Value).ToString("d");
                 
                 counter++;
@@ -880,6 +1073,7 @@ namespace covid_stats
             {
                 G2.chrt_wales_vac.Series["Wales"].Points.Add(Convert.ToDouble(dgv_vac_wales["Total", counter].Value));
                 G2.chrt_wales_vac.Series["Wales_fully"].Points.Add(Convert.ToDouble(dgv_vac_wales["Total 2", counter].Value));
+                G2.chrt_wales_vac.Series["Wales_Boost"].Points.Add(Convert.ToDouble(dgv_vac_wales["boost1", counter].Value));
                 G2.chrt_wales_vac.Series["Wales"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_wales["Date", counter].Value).ToString("d");
 
                counter++;
