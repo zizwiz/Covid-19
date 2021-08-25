@@ -29,6 +29,7 @@ namespace covid_stats.graphs
             chrt_england_vac.Series["England"].ChartType = SeriesChartType.FastLine; //set type
             chrt_england_vac.Series["England"].Color = Color.Black; //set colour
             chrt_england_vac.Series["England_fully"].Color = Color.DimGray; //set colour
+            chrt_england_vac.Series["England_Boost"].Color = Color.LightGray; //set colour
 
             chrt_scotland_vac.Legends.Clear(); // We do not need a legend
             chrt_scotland_vac.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -36,6 +37,7 @@ namespace covid_stats.graphs
             chrt_scotland_vac.Series["Scotland"].ChartType = SeriesChartType.FastLine; //set type
             chrt_scotland_vac.Series["Scotland"].Color = Color.BlueViolet; //set colour
             chrt_scotland_vac.Series["Scotland_fully"].Color = Color.Violet; //set colour
+            chrt_scotland_vac.Series["Scotland_Boost"].Color = Color.PaleVioletRed; //set colour
 
             chrt_n_ireland_vac.Legends.Clear(); // We do not need a legend
             chrt_n_ireland_vac.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -43,6 +45,7 @@ namespace covid_stats.graphs
             chrt_n_ireland_vac.Series["N. Ireland"].ChartType = SeriesChartType.FastLine; //set type
             chrt_n_ireland_vac.Series["N. Ireland"].Color = Color.Green; //set colour
             chrt_n_ireland_vac.Series["N. Ireland_fully"].Color = Color.DarkSeaGreen; //set colour
+            chrt_n_ireland_vac.Series["N.Ireland_Boost"].Color = Color.ForestGreen; //set colour
 
             chrt_wales_vac.Legends.Clear(); // We do not need a legend
             chrt_wales_vac.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -50,7 +53,7 @@ namespace covid_stats.graphs
             chrt_wales_vac.Series["Wales"].ChartType = SeriesChartType.FastLine; //set type
             chrt_wales_vac.Series["Wales"].Color = Color.Red; //set colour
             chrt_wales_vac.Series["Wales_fully"].Color = Color.PaleVioletRed; //set colour
-
+            chrt_wales_vac.Series["Wales_Boost"].Color = Color.MediumVioletRed; //set colour
 
         }
 
@@ -159,22 +162,6 @@ namespace covid_stats.graphs
                     var fileExt = System.IO.Path.GetExtension(saveFileDialog.FileName).ToString().ToLower();
                     if (imgFormats.ContainsKey(fileExt))
                     {
-                        /*if (tabcntr_uk_hosp.SelectedTab.Name == "tab_num_in_hospital")
-                        {
-                            chrt_num_in_hosp.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
-                        }
-                        else if (tabcntr_uk_hosp.SelectedTab.Name == "tab_new_admissions")
-                        {
-                            chrt_new_admissions.SaveImage(saveFileDialog.FileName, imgFormats[fileExt]);
-                        }*/
-
-                      //  MemoryImage = new Bitmap(pnl_vac_graph.Width, pnl_vac_graph.Height);
-                      //  pnl_vac_graph.DrawToBitmap(MemoryImage, new Rectangle(0, 0, pnl_vac_graph.Width, pnl_vac_graph.Height));
-
-                       // MemoryImage.Save(saveFileDialog.FileName, imgFormats[fileExt]);
-
-
-
                         int width = pnl_vac_graph.Size.Width;
                         int height = pnl_vac_graph.Size.Height;
 
@@ -195,6 +182,12 @@ namespace covid_stats.graphs
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+
+        private void chrt_scotland_vac_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
