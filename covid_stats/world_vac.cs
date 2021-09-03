@@ -378,6 +378,16 @@ namespace covid_stats
                 dgv_vac_world_unverified.Columns.Add("Coverage2", "% Fully Vac Coverage");
                 dgv_vac_world_unverified.Columns["Coverage2"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
                 dgv_vac_world_unverified.Columns["Coverage2"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                
+                dgv_vac_world_unverified.Columns.Add("last_boost1", "New 1st Boost");
+                dgv_vac_world_unverified.Columns["last_boost1"].DefaultCellStyle.Format = "### ### ### ##0";
+                dgv_vac_world_unverified.Columns["last_boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgv_vac_world_unverified.Columns["last_boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+
+                dgv_vac_world_unverified.Columns.Add("boost1", "% 1st Boost");
+                dgv_vac_world_unverified.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgv_vac_world_unverified.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+               
 
                 dgv_vac_world_unverified.Columns.Add("GTotal", "Tot Doses Given");
                 dgv_vac_world_unverified.Columns["GTotal"].DefaultCellStyle.Format = "### ### ### ##0";
@@ -389,7 +399,9 @@ namespace covid_stats
 
                 //get the item number in the array.
                 string[] headings = Regex.Split(world_data[0], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                //location,iso_code,date,total_vaccinations,daily_vaccinations,total_vaccinations_per_hundred,daily_vaccinations_per_million
+                //location,iso_code,date,total_vaccinations,people_vaccinated,people_fully_vaccinated,total_boosters,daily_vaccinations_raw,
+                //daily_vaccinations,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,
+                //total_boosters_per_hundred,daily_vaccinations_per_million
 
                 int loc = Array.IndexOf(headings, "location");
                 int dat = Array.IndexOf(headings, "date");
@@ -398,6 +410,9 @@ namespace covid_stats
                 long pop = Array.IndexOf(headings, "people_vaccinated_per_hundred");
                 long tot2 = Array.IndexOf(headings, "people_fully_vaccinated"); //Fully
                 long pop2 = Array.IndexOf(headings, "people_fully_vaccinated_per_hundred");
+                long boost = Array.IndexOf(headings, "total_boosters");
+                long boost2 = Array.IndexOf(headings, "total_boosters_per_hundred");
+
 
 
 
@@ -428,6 +443,15 @@ namespace covid_stats
                         {
                             dgv_vac_world_unverified.Rows[count].Cells[4].Value = Convert.ToInt64(0);
                         }
+                        
+                        if (values[r, boost] != "") //boost
+                        {
+                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt64(values[r, boost]);
+                        }
+                        else
+                        {
+                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt64(0);
+                        }
 
                         if (values[r, pop] != "") //Total
                         {
@@ -449,13 +473,28 @@ namespace covid_stats
                             dgv_vac_world_unverified.Rows[count].Cells[5].Value = (float)0;
                         }
 
-                        if (values[r, gtot] != "") //Total vac administered
+                        if (values[r, boost2] != "") //Fully
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt32(values[r, gtot]);
+                            dgv_vac_world_unverified.Rows[count].Cells[7].Value = float.Parse(values[r, boost2]); //% Population Covered
+
                         }
                         else
                         {
-                            dgv_vac_world_unverified.Rows[count].Cells[6].Value = Convert.ToInt32(0);
+                            dgv_vac_world_unverified.Rows[count].Cells[7].Value = (float)0;
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        if (values[r, gtot] != "") //Total vac administered
+                        {
+                            dgv_vac_world_unverified.Rows[count].Cells[8].Value = Convert.ToInt32(values[r, gtot]);
+                        }
+                        else
+                        {
+                            dgv_vac_world_unverified.Rows[count].Cells[8].Value = Convert.ToInt32(0);
                         }
 
                         count++;
@@ -493,14 +532,38 @@ namespace covid_stats
                         {
                             dgv_vac_world_unverified.Rows[count - 1].Cells[5].Value = (float)0;
                         }
-
-                        if (values[r, gtot] != "")
+                        
+                        
+                        if (values[r, boost] != "")
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt64(values[r, gtot]); //Total
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = float.Parse(values[r, boost]); //% Population Covered
+
                         }
                         else
                         {
-                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = Convert.ToInt64(0);
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[6].Value = (float)0;
+                        }
+                        
+                        if (values[r, boost2] != "")
+                        {
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[7].Value = float.Parse(values[r, boost2]); //% Population Covered
+
+                        }
+                        else
+                        {
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[7].Value = (float)0;
+                        }
+                        
+                        
+                        
+
+                        if (values[r, gtot] != "")
+                        {
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[8].Value = Convert.ToInt64(values[r, gtot]); //Total
+                        }
+                        else
+                        {
+                            dgv_vac_world_unverified.Rows[count - 1].Cells[8].Value = Convert.ToInt64(0);
                         }
                     }
                 }
@@ -512,6 +575,8 @@ namespace covid_stats
                 dgv_vac_world_unverified.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgv_vac_world_unverified.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgv_vac_world_unverified.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgv_vac_world_unverified.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgv_vac_world_unverified.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgv_vac_world_unverified.Sort(dgv_vac_world_unverified.Columns["Coverage"], ListSortDirection.Descending);
                 dgv_vac_world_unverified.FirstDisplayedScrollingRowIndex = 0;
                 dgv_vac_world_unverified.RowHeadersVisible = false;
