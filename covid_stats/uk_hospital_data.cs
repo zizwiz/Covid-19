@@ -35,7 +35,7 @@ namespace covid_stats
                 MessageBox.Show("Cannot get results from Internet, please check connection");
             }
         }
-        
+
 
         private void Populate_UK_Hospital_Grid()
         {
@@ -65,6 +65,8 @@ namespace covid_stats
            
             int value2 = 0;
             int value = 0;
+            int hosp_today = 0;
+            int hosp_yesterday = 0;
             
             // Make column headers.
             // For this example, we assume the first row
@@ -85,12 +87,17 @@ namespace covid_stats
             dgv_uk_hospital.Columns["newAdmissions"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_uk_hospital.Columns["newAdmissions"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
             
+            dgv_uk_hospital.Columns.Add("netGain", "Net Gain");
+            dgv_uk_hospital.Columns["netGain"].DefaultCellStyle.Format = "### ### ### ##0";
+            dgv_uk_hospital.Columns["netGain"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgv_uk_hospital.Columns["netGain"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+            
             // Add the data.
             for (int r = 1; r < num_rows; r++)
             {
                 dgv_uk_hospital.Rows.Add();
                 dgv_uk_hospital.Rows[r - 1].Cells[0].Value = Convert.ToDateTime(values[r, dat]); //Date
-                
+
                 value = 0;
                 if (values[r, hosp_cases] != "") value = Convert.ToInt32(values[r, hosp_cases]);
                 dgv_uk_hospital.Rows[r - 1].Cells[1].Value = value; //Total hospitalised cases
@@ -98,25 +105,50 @@ namespace covid_stats
                 value = 0;
                 if (values[r, new_cases] != "") value = Convert.ToInt32(values[r, new_cases]);
                 dgv_uk_hospital.Rows[r - 1].Cells[2].Value = value; //Total new cases
+
                 
+            }
+            
+            hosp_yesterday = 0;
+            for (int r = 1; r < num_rows; r++)
+            {
+                value = 0;
+                
+                
+                if (values[r, hosp_cases] != "")
+                {
+                    hosp_today = Convert.ToInt32(values[r, hosp_cases]);
+                    if (r == num_rows - 1)
+                    {
+                       hosp_yesterday = 0;
+                    }
+                   
+                        dgv_uk_hospital.Rows[r - 1].Cells[3].Value = hosp_yesterday - hosp_today; //net gain
+                        hosp_yesterday = hosp_today;
+                }
+                else
+                {
+                    dgv_uk_hospital.Rows[r-1].Cells[3].Value = 0;
+                }
             }
 
             dgv_uk_hospital.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_uk_hospital.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgv_uk_hospital.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgv_uk_hospital.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             
             dgv_uk_hospital.Sort(dgv_uk_hospital.Columns["Date"], ListSortDirection.Ascending); //We need to get the newest data at the bottom.
 
             dgv_uk_hospital.FirstDisplayedScrollingRowIndex = dgv_uk_hospital.RowCount - 1;
             dgv_uk_hospital.RowHeadersVisible = false;
         }
-        
+
 
         private void btn_draw_uk_hos_graph_Click(object sender, EventArgs e)
         {
             int counter = 0;
-            int num_rows = 0;
-
+            int num_rows = dgv_uk_hospital.RowCount;
+            
 
             var G3 = new uk_hosp_graphs();
 
@@ -125,8 +157,21 @@ namespace covid_stats
                 G3.chrt_num_in_hosp.Series["NumInHosp"].Points.Add(Convert.ToDouble(dgv_uk_hospital["hospitalCases", counter].Value));
                 G3.chrt_num_in_hosp.Series["NumInHosp"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_uk_hospital["Date", counter].Value).ToString("d");
 
-                G3.chrt_new_admissions.Series["NewAdmissions"].Points.Add(Convert.ToDouble(dgv_uk_hospital["newAdmissions", counter].Value));
-                G3.chrt_new_admissions.Series["NewAdmissions"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_uk_hospital["Date", counter].Value).ToString("d");
+                if (Convert.ToDouble(dgv_uk_hospital["newAdmissions", counter].Value) > 0)
+                {
+                    G3.chrt_new_admissions.Series["NewAdmissions"].Points
+                        .Add(Convert.ToDouble(dgv_uk_hospital["newAdmissions", counter].Value));
+                    G3.chrt_new_admissions.Series["NewAdmissions"].Points[counter].AxisLabel =
+                        Convert.ToDateTime(dgv_uk_hospital["Date", counter].Value).ToString("d");
+                }
+
+                if (counter < (num_rows-1))
+                {
+                    G3.chrt_net_gain.Series["NetGain"].Points
+                        .Add(Convert.ToDouble(dgv_uk_hospital["netGain", counter].Value));
+                    G3.chrt_net_gain.Series["NetGain"].Points[counter].AxisLabel =
+                        Convert.ToDateTime(dgv_uk_hospital["Date", counter].Value).ToString("d");
+                }
 
                 counter++;
             }
