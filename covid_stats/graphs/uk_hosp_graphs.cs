@@ -49,7 +49,19 @@ namespace covid_stats.graphs
             ca_NewAdmissions.CursorX.IsUserSelectionEnabled = true; //adds reset button on left
             ca_NewAdmissions.AxisX.ScaleView.SmallScrollSize = 100;
 
+            chrt_net_gain.Series["NetGain"].ChartType = SeriesChartType.FastLine; //set type
+            chrt_net_gain.Series["NetGain"].Color = Color.Green; //set colour
+            chrt_net_gain.Legends.Clear(); // We do not need a legend
+            chrt_net_gain.ChartAreas[0].AxisX.IsMarginVisible = false;
 
+            Series series_NetGain = chrt_net_gain.Series.Add("");
+            ChartArea ca_NetGain = chrt_net_gain.ChartAreas[series_NetGain.ChartArea]; // get hold of chart
+
+            // enable autoscroll
+            ca_NetGain.AxisX.ScaleView.Zoomable = true;
+            ca_NetGain.CursorX.AutoScroll = true;
+            ca_NetGain.CursorX.IsUserSelectionEnabled = true; //adds reset button on left
+            ca_NetGain.AxisX.ScaleView.SmallScrollSize = 100;
 
 
         }
@@ -90,6 +102,24 @@ namespace covid_stats.graphs
             }
         }
 
+        private void chrt_net_gain_MouseMove(object sender, MouseEventArgs e)
+        {
+            var pos = e.Location;
+            if (prevPosition.HasValue && pos == prevPosition.Value)
+                return;
+            tooltip.RemoveAll();
+            prevPosition = pos;
+            var results = chrt_net_gain.HitTest(pos.X, pos.Y, false, ChartElementType.DataPoint); 
+            foreach (var result in results)
+            {
+                if (result.ChartElementType == ChartElementType.DataPoint) // set ChartElementType.PlottingArea for full area, not only DataPoints
+                {
+                    var yVal = result.ChartArea.AxisY.PixelPositionToValue(pos.Y);
+                    tooltip.Show(((int)yVal).ToString(), chrt_net_gain, pos.X, pos.Y - 15);
+                }
+            }
+        }
+        
         private void btn_exit_hosp_graph_Click(object sender, System.EventArgs e)
         {
             Close();
@@ -143,5 +173,7 @@ namespace covid_stats.graphs
                 }
             }
         }
+
+        
     }
 }
