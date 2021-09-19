@@ -23,6 +23,14 @@ namespace covid_stats.graphs
         {
             
             
+            chrt_world_vac_info.Legends.Clear(); // We do not need a legend
+            chrt_world_vac_info.ChartAreas[0].AxisX.IsMarginVisible = false;
+            chrt_world_vac_info.Titles.Add("World Vaccinations");
+            chrt_world_vac_info.Series["World"].ChartType = SeriesChartType.FastLine; //set type
+            chrt_world_vac_info.Series["World"].Color = Color.Indigo; //set colour
+            chrt_world_vac_info.Series["World_fully"].Color = Color.Orange; //set colour
+            chrt_world_vac_info.Series["World_Boost"].Color = Color.Orchid; //set colour
+            
             chrt_england_vac.Legends.Clear(); // We do not need a legend
             chrt_england_vac.ChartAreas[0].AxisX.IsMarginVisible = false;
             chrt_england_vac.Titles.Add("England Vaccinations");
