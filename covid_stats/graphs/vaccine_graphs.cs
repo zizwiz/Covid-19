@@ -137,7 +137,8 @@ namespace covid_stats.graphs
         private void btn_save_vaccinegraph_as_image_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Image Files|*.png|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
+            saveFileDialog.Filter =
+                "Image Files|*.png|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
             saveFileDialog.Title = "Save Chart Image As file";
             saveFileDialog.DefaultExt = ".png";
             saveFileDialog.FileName = "Sample.png";
@@ -174,7 +175,8 @@ namespace covid_stats.graphs
                     }
                     else
                     {
-                        throw new Exception(String.Format("Only image formats '{0}' supported", string.Join(", ", imgFormats.Keys)));
+                        throw new Exception(String.Format("Only image formats '{0}' supported",
+                            string.Join(", ", imgFormats.Keys)));
                     }
                 }
                 catch (Exception ex)
@@ -182,12 +184,6 @@ namespace covid_stats.graphs
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-
-        private void chrt_scotland_vac_Click(object sender, EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

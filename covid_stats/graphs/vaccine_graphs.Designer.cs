@@ -332,7 +332,6 @@
             this.chrt_scotland_vac.Size = new System.Drawing.Size(564, 231);
             this.chrt_scotland_vac.TabIndex = 5;
             this.chrt_scotland_vac.Text = "chart1";
-            this.chrt_scotland_vac.Click += new System.EventHandler(this.chrt_scotland_vac_Click);
             this.chrt_scotland_vac.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chrt_scotland_vac_MouseMove);
             // 
             // chrt_wales_vac
