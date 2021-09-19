@@ -716,7 +716,7 @@ namespace covid_stats
             dgv_vac_uk.Columns["boost1"].DefaultCellStyle.Format = "### ### ### ##0";
             dgv_vac_uk.Columns["boost1"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_uk.Columns["boost1"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
-
+            
             dgv_vac_uk.Columns.Add("boost1 Cover", "Boost1 % Coverage");
             dgv_vac_uk.Columns["boost1 Cover"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv_vac_uk.Columns["boost1 Cover"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
@@ -1082,6 +1082,8 @@ namespace covid_stats
             ///////////////////////////////////////
             /// Doughnut Chart for UK % covered
             /// ///////////////////////////////////
+            long UKPopulation = 68323362;
+            
             int numrows = (dgv_vac_uk.RowCount) - 1;
             G2.chrt_uk_vac.Legends.Clear();
             G2.chrt_uk_vac.Series["UK_1st"].Label = " ";
@@ -1093,14 +1095,19 @@ namespace covid_stats
 
             string fully = Regex.Replace(dgv_vac_uk[6, numrows].Value.ToString(), @" ", "");
             fully = fully.Substring(0, fully.Length - 3) + "%";
+            
+            string boost = Regex.Replace(dgv_vac_uk[9, numrows].Value.ToString(), @" ", "");
+            boost = boost.Substring(0, boost.Length - 3) + "%";
 
-            G2.chrt_uk_vac.Titles.Add("UK: 1st = " + firsts + ", Full = " + fully);
+            G2.chrt_uk_vac.Titles.Add("UK: 1st = " + firsts + ", Full = " + fully + ", Boost = " + boost);
 
 
             G2.chrt_uk_vac.Series.Clear();
             Series S1 = G2.chrt_uk_vac.Series.Add("UK_1st");
             Series S2 = G2.chrt_uk_vac.Series.Add("UK_2nd");
+            Series S3 = G2.chrt_uk_vac.Series.Add("UK_boost");
 
+            G2.chrt_uk_vac.Series["UK_boost"].Label = " ";
             G2.chrt_uk_vac.Series["UK_2nd"].Label = " ";
             G2.chrt_uk_vac.ChartAreas.Clear();
             G2.chrt_uk_vac.Legends.Clear();
@@ -1108,60 +1115,65 @@ namespace covid_stats
 
             ChartArea CA1 = G2.chrt_uk_vac.ChartAreas.Add("Outer");
             ChartArea CA2 = G2.chrt_uk_vac.ChartAreas.Add("Inner");
+            ChartArea CA3 = G2.chrt_uk_vac.ChartAreas.Add("Center");
 
             CA1.Position = new ElementPosition(0, 0, 100, 100);
             CA2.Position = new ElementPosition(0, 0, 100, 100);
+            CA3.Position = new ElementPosition(0, 0, 100, 100);
 
-            float innerSize = 60;
+            float centerSize = 40;
+            float innerSize = 70; //60
             float outerSize = 100;
-            float baseDoughnutWidth = 25;
+            float baseDoughnutWidth = 33;
 
             CA1.InnerPlotPosition = new ElementPosition((100 - outerSize) / 2,
                 (100 - outerSize) / 2 + 10, outerSize, outerSize - 10);
 
             CA2.InnerPlotPosition = new ElementPosition((100 - innerSize) / 2,
                 (100 - innerSize) / 2 + 10, innerSize, innerSize - 10);
+            
+            CA3.InnerPlotPosition = new ElementPosition((100 - centerSize) / 2,
+                (100 - centerSize) / 2 + 10, centerSize, centerSize - 10);
 
             S1["DoughnutRadius"] =
                 Math.Min(baseDoughnutWidth * (100 / outerSize), 99).ToString().Replace(",", ".");
             S2["DoughnutRadius"] =
                 Math.Min(baseDoughnutWidth * (100 / innerSize), 99).ToString().Replace(",", ".");
+            S3["DoughnutRadius"] =
+                Math.Min(baseDoughnutWidth * (100 / centerSize), 99).ToString().Replace(",", ".");
 
 
             S1.ChartArea = CA1.Name;
             S2.ChartArea = CA2.Name;
+            S3.ChartArea = CA3.Name;
 
             S1.ChartType = SeriesChartType.Doughnut;
             S2.ChartType = SeriesChartType.Doughnut;
+            S3.ChartType = SeriesChartType.Doughnut;
 
             CA2.BackColor = Color.Transparent;
-            S1["DoughnutRadius"] = "41"; // leave just a little space!
-            S2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
-
-            long o_remaining_number = 68085031 - (long)dgv_vac_uk[2, numrows].Value;
+            CA3.BackColor = Color.Transparent;
+           
+            long o_remaining_number = UKPopulation - (long)dgv_vac_uk[2, numrows].Value;
             S1.Points.AddXY("1", o_remaining_number);
             S1.Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString());
 
-            long i_remaining_number = 68085031 - (long)dgv_vac_uk[5, numrows].Value;
+            long i_remaining_number = UKPopulation - (long)dgv_vac_uk[5, numrows].Value;
             S2.Points.AddXY("1", i_remaining_number);
-            S2.Points.AddXY("2", "0");
-            S2.Points.AddXY("3", dgv_vac_uk[5, numrows].Value.ToString());
+            S2.Points.AddXY("2", dgv_vac_uk[5, numrows].Value.ToString());
 
+           // Use Convert.ToInt64 as Long is neg or Pos for zero and this will fail.
+            long c_remaining_number = UKPopulation - Convert.ToInt64(dgv_vac_uk[8, numrows].Value);
+            S3.Points.AddXY("1", c_remaining_number);
+            S3.Points.AddXY("2", "0");
+            S3.Points.AddXY("3", dgv_vac_uk[8, numrows].Value.ToString());
+            
 
             ///////////////////////////////////////
             /// PieChart for World % covered
             /// ///////////////////////////////////
-            /*
-            long w_remaining_number = 7861686173 - (int)dgv_vac_world[2, numrows].Value;
-                        
-            numrows = (dgv_vac_world.RowCount) - 1;
-            G2.chrt_world_vac.Legends.Clear();
-            G2.chrt_world_vac.Series["World"].Label = " ";
-            G2.chrt_world_vac.Titles.Add("World % Covered = " + dgv_vac_world[3, numrows].Value);
-            G2.chrt_world_vac.Series["World"].Points.AddXY("1", w_remaining_number); //World Population
-            G2.chrt_world_vac.Series["World"].Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString()); // vaccinated
-            */
 
+            long WorldPopulation = 7894168700;
             numrows = (dgv_vac_world.RowCount) - 1;
             G2.chrt_world_vac.Legends.Clear();
             G2.chrt_world_vac.Series["World_1st"].Label = " ";
@@ -1171,62 +1183,81 @@ namespace covid_stats
 
             string wfully = Regex.Replace(dgv_vac_world[6, numrows].Value.ToString(), @" ", "");
             wfully = wfully.Substring(0, wfully.Length - 3) + "%";
+            
+            string wboost = Regex.Replace(dgv_vac_world[9, numrows].Value.ToString(), @" ", "");
+            wboost = wboost.Substring(0, wboost.Length - 3) + "%";
 
-            G2.chrt_world_vac.Titles.Add("World: 1st = " + wfirsts + ", Full = " + wfully);
+            G2.chrt_world_vac.Titles.Add("World: 1st = " + wfirsts + ", Full = " + wfully + ", Boost = " + wboost);
 
 
             G2.chrt_world_vac.Series.Clear();
             Series wS1 = G2.chrt_world_vac.Series.Add("World_1st");
             Series wS2 = G2.chrt_world_vac.Series.Add("World_2nd");
+            Series wS3 = G2.chrt_world_vac.Series.Add("World_boost");
 
+            
+            G2.chrt_world_vac.Series["World_boost"].Label = " ";
             G2.chrt_world_vac.Series["World_2nd"].Label = " ";
             G2.chrt_world_vac.ChartAreas.Clear();
             G2.chrt_world_vac.Legends.Clear();
             G2.chrt_world_vac.Series["World_1st"].Label = " ";
+            
 
             ChartArea wCA1 = G2.chrt_world_vac.ChartAreas.Add("wOuter");
             ChartArea wCA2 = G2.chrt_world_vac.ChartAreas.Add("wInner");
+            ChartArea wCA3 = G2.chrt_world_vac.ChartAreas.Add("wCenter");
 
             wCA1.Position = new ElementPosition(0, 0, 100, 100);
             wCA2.Position = new ElementPosition(0, 0, 100, 100);
+            wCA3.Position = new ElementPosition(0, 0, 100, 100);
 
-            float winnerSize = 60;
+            float wcenterSize = 40;
+            float winnerSize = 70; //60
             float wouterSize = 100;
-            float wbaseDoughnutWidth = 25;
+            float wbaseDoughnutWidth = 33;
 
             wCA1.InnerPlotPosition = new ElementPosition((100 - wouterSize) / 2,
                 (100 - wouterSize) / 2 + 10, wouterSize, wouterSize - 10);
 
             wCA2.InnerPlotPosition = new ElementPosition((100 - winnerSize) / 2,
                 (100 - winnerSize) / 2 + 10, winnerSize, winnerSize - 10);
+            
+            wCA3.InnerPlotPosition = new ElementPosition((100 - wcenterSize) / 2,
+                (100 - wcenterSize) / 2 + 10, wcenterSize, wcenterSize - 10);
 
             wS1["DoughnutRadius"] =
                 Math.Min(wbaseDoughnutWidth * (100 / wouterSize), 99).ToString().Replace(",", ".");
             wS2["DoughnutRadius"] =
                 Math.Min(wbaseDoughnutWidth * (100 / winnerSize), 99).ToString().Replace(",", ".");
+            wS3["DoughnutRadius"] =
+                Math.Min(wbaseDoughnutWidth * (100 / wcenterSize), 99).ToString().Replace(",", ".");
 
 
             wS1.ChartArea = wCA1.Name;
             wS2.ChartArea = wCA2.Name;
+            wS3.ChartArea = wCA3.Name;
 
             wS1.ChartType = SeriesChartType.Doughnut;
             wS2.ChartType = SeriesChartType.Doughnut;
+            wS3.ChartType = SeriesChartType.Doughnut;
 
             wCA2.BackColor = Color.Transparent;
-            wS1["DoughnutRadius"] = "41"; // leave just a little space!
-            wS2["DoughnutRadius"] = "99"; // 99 is the limit. a tiny spot remains open
-
-            long wo_remaining_number = 7861686173 - (long)dgv_vac_world[2, numrows].Value;
+            wCA3.BackColor = Color.Transparent;
+            
+            long wo_remaining_number = WorldPopulation - (long)dgv_vac_world[2, numrows].Value;
             wS1.Points.AddXY("1", wo_remaining_number);
             wS1.Points.AddXY("2", dgv_vac_world[2, numrows].Value.ToString());
 
-            long wi_remaining_number = 7861686173 - (long)dgv_vac_world[5, numrows].Value;
+            long wi_remaining_number = WorldPopulation - (long)dgv_vac_world[5, numrows].Value;
             wS2.Points.AddXY("1", wi_remaining_number);
-            wS2.Points.AddXY("2", "0");
-            wS2.Points.AddXY("3", dgv_vac_world[5, numrows].Value.ToString());
+           // wS2.Points.AddXY("2", "0");
+            wS2.Points.AddXY("2", dgv_vac_world[5, numrows].Value.ToString());
 
 
-
+            long wc_remaining_number = WorldPopulation - (long)dgv_vac_world[8, numrows].Value;
+            wS3.Points.AddXY("1", wc_remaining_number);
+            wS3.Points.AddXY("2", "0");
+            wS3.Points.AddXY("3", dgv_vac_world[8, numrows].Value.ToString());
 
 
             ///////////////////////////////////////
