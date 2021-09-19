@@ -1079,6 +1079,19 @@ namespace covid_stats
                counter++;
             }
 
+            counter = 0;
+            foreach (DataGridViewRow row in dgv_vac_world.Rows)
+            {
+                G2.chrt_world_vac_info.Series["World"].Points.Add(Convert.ToDouble(dgv_vac_world["Total", counter].Value));
+                G2.chrt_world_vac_info.Series["World_fully"].Points.Add(Convert.ToDouble(dgv_vac_world["Total2", counter].Value));
+                G2.chrt_world_vac_info.Series["World_Boost"].Points.Add(Convert.ToDouble(dgv_vac_world["boost1", counter].Value));
+                G2.chrt_world_vac_info.Series["World"].Points[counter].AxisLabel = Convert.ToDateTime(dgv_vac_world["Date", counter].Value).ToString("d");
+
+                counter++;
+            }
+            
+            
+            
             ///////////////////////////////////////
             /// Doughnut Chart for UK % covered
             /// ///////////////////////////////////
@@ -1259,7 +1272,7 @@ namespace covid_stats
             wS3.Points.AddXY("2", "0");
             wS3.Points.AddXY("3", dgv_vac_world[8, numrows].Value.ToString());
 
-
+/*
             ///////////////////////////////////////
             /// PieChart for UK Target coverage
             /// ///////////////////////////////////
@@ -1310,8 +1323,10 @@ namespace covid_stats
                 G2.label2.Visible = false;
                 G2.label4.Visible = false;
             }
-
+*/
             G2.ShowDialog();
+
+
         }
 
 
