@@ -11,7 +11,7 @@ namespace covid_stats.graphs
     {
         Point? prevPosition = null;
         ToolTip tooltip = new ToolTip();
-        Bitmap MemoryImage;
+        //Bitmap MemoryImage;
 
         public vaccine_graphs()
         {
