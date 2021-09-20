@@ -18,7 +18,7 @@ namespace covid_stats
             bool flag = true;
             int num_rows = 0;
             int num_cols = 0;
-            string short_date = "";
+            //string short_date = "";
 
             for (int j = 0; j < 2; j++)
             {

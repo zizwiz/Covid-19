@@ -10,7 +10,7 @@ namespace covid_stats
         {
             string line = "";
             int counter = 0;
-            int num_rows = 0;
+            //int num_rows = 0;
 
             string data_file = "countries.txt";
             string in_file = "orig_deaths.csv";

@@ -11,8 +11,8 @@ namespace covid_stats
 
         private void Make_Data(int row)
         {
-            string a = "";
-            int row_no = 0;
+            //string a = "";
+            //int row_no = 0;
             int counter = 0;
             string line = "";
 
@@ -55,8 +55,8 @@ namespace covid_stats
                 outfile.Close();
 
                 //reset the variables
-                a = "";
-                row_no = 0;
+                //a = "";
+                //row_no = 0;
                 counter = 0;
                 line = "";
 
