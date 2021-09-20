@@ -1175,13 +1175,15 @@ namespace covid_stats
 
             long i_remaining_number = UKPopulation - (long)dgv_vac_uk[5, numrows].Value;
             S2.Points.AddXY("1", i_remaining_number);
-            S2.Points.AddXY("2", dgv_vac_uk[5, numrows].Value.ToString());
+            S2.Points.AddXY("2", "0");
+            S2.Points.AddXY("3", dgv_vac_uk[5, numrows].Value.ToString());
 
            // Use Convert.ToInt64 as Long is neg or Pos for zero and this will fail.
             long c_remaining_number = UKPopulation - Convert.ToInt64(dgv_vac_uk[8, numrows].Value);
             S3.Points.AddXY("1", c_remaining_number);
-            S3.Points.AddXY("2", "0");
-            S3.Points.AddXY("3", dgv_vac_uk[8, numrows].Value.ToString());
+            S3.Points.AddXY("2", "0"); //use next colour
+            S3.Points.AddXY("3", "0"); //use next colour
+            S3.Points.AddXY("4", dgv_vac_uk[8, numrows].Value.ToString());
             
 
             ///////////////////////////////////////
