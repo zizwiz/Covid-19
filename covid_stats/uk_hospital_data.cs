@@ -40,8 +40,8 @@ namespace covid_stats
         private void Populate_UK_Hospital_Grid()
         {
             int num_rows = 0;
-            int num_cols = 0;
-            string short_date = "";
+            //int num_cols = 0;
+            //string short_date = "";
 
             int hosp_cases;
             int new_cases;
@@ -63,7 +63,7 @@ namespace covid_stats
 
             num_rows = values.GetUpperBound(0) + 1;
            
-            int value2 = 0;
+            //int value2 = 0;
             int value = 0;
             int hosp_today = 0;
             int hosp_yesterday = 0;

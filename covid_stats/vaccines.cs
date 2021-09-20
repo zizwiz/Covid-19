@@ -21,7 +21,7 @@ namespace covid_stats
         }
 
 
-        private async void get_vac_data_Click()
+        private void get_vac_data_Click()
         {
           //  Directory.Delete("Country_Files", true);
             if (File.Exists("world_vac.csv")) File.Delete("world_vac.csv");
@@ -124,7 +124,7 @@ namespace covid_stats
         {
             int num_rows = 0;
             int num_cols = 0;
-            string short_date = "";
+            //string short_date = "";
 
             long vac;
             long dat;
@@ -782,6 +782,7 @@ namespace covid_stats
             catch (Exception ex)
             {
                 //comes in here is we cannot find the search term and then we do not draw graphs per 100k
+                string ext = ex.ToString();
 
             }
 
@@ -966,6 +967,7 @@ namespace covid_stats
             catch (Exception ex)
             {
                 //comes in here is we cannot find the search term and then we do not draw graphs per 100k
+                string ext = ex.ToString();
 
             }
 
@@ -1263,73 +1265,17 @@ namespace covid_stats
 
             long wi_remaining_number = WorldPopulation - (long)dgv_vac_world[5, numrows].Value;
             wS2.Points.AddXY("1", wi_remaining_number);
-           // wS2.Points.AddXY("2", "0");
-            wS2.Points.AddXY("2", dgv_vac_world[5, numrows].Value.ToString());
+            wS2.Points.AddXY("2", "0"); //allows colour to be changed
+            wS2.Points.AddXY("3", dgv_vac_world[5, numrows].Value.ToString());
 
 
             long wc_remaining_number = WorldPopulation - (long)dgv_vac_world[8, numrows].Value;
             wS3.Points.AddXY("1", wc_remaining_number);
-            wS3.Points.AddXY("2", "0");
-            wS3.Points.AddXY("3", dgv_vac_world[8, numrows].Value.ToString());
-
-/*
-            ///////////////////////////////////////
-            /// PieChart for UK Target coverage
-            /// ///////////////////////////////////
-            long remaining_number = 52800000 - (long)dgv_vac_uk[2, ((dgv_vac_uk.RowCount) - 1)].Value;
-
-            numrows = (dgv_vac_uk.RowCount) - 1;
-            G2.chrt_uk_target.Legends.Clear();
-            G2.chrt_uk_target.Series["uk_target"].Label = " ";
-            G2.chrt_uk_target.Titles.Add("UK Targeted Coverage = 52.8 million 1st doses by 19 July 2021");
-            G2.chrt_uk_target.Series["uk_target"].Points.AddXY("1", remaining_number); //target
-            G2.chrt_uk_target.Series["uk_target"].Points.AddXY("2", dgv_vac_uk[2, numrows].Value.ToString()); // vaccinated
-
+            wS3.Points.AddXY("2", "0"); //use next colour
+            wS3.Points.AddXY("3", "0"); //use next colour
+            wS3.Points.AddXY("4", dgv_vac_world[8, numrows].Value.ToString());
             
-
-            DateTime d2 = new DateTime(2021, 7, 19);
-            DateTime d1 = DateTime.Now;
-
-            if (d1 < d2)
-            {
-                G2.label1.Visible = true;
-                G2.label3.Visible = true;
-                G2.label2.Visible = true;
-                G2.label4.Visible = true;
-                int DaysToGo = convert.DaysBetweenDates(d2, d1);
-                if (DaysToGo == 0) DaysToGo = 1;
-
-                G2.lbl_HowManyToGo.Text = remaining_number.ToString("### ### ##0");
-                G2.lbl_HowManyEachDay.Text = (remaining_number / DaysToGo).ToString("### ### ##0");
-                G2.lbl_present_rate.Text =
-                    ((int) dgv_vac_uk[1, ((dgv_vac_uk.RowCount) - 1)].Value).ToString("### ### ##0");
-
-                if (((int) dgv_vac_uk[1, ((dgv_vac_uk.RowCount) - 1)].Value) < (remaining_number / DaysToGo))
-                {
-                    G2.panel_uk_target.BackColor = Color.Red;
-                }
-                else
-                {
-                    G2.panel_uk_target.BackColor = Color.LimeGreen;
-                }
-            }
-            else
-            {
-                G2.lbl_HowManyToGo.Text = "";
-                G2.lbl_HowManyEachDay.Text = "";
-                G2.lbl_present_rate.Text = "";
-                G2.label1.Visible = false;
-                G2.label3.Visible = false;
-                G2.label2.Visible = false;
-                G2.label4.Visible = false;
-            }
-*/
-            G2.ShowDialog();
-
-
+            G2.ShowDialog(); 
         }
-
-
-
     }
 }

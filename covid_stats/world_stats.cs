@@ -221,7 +221,7 @@ namespace covid_stats
         {
             string line = "";
             int counter = 0;
-            int num_rows = 0;
+            //int num_rows = 0;
 
             string data_file = "who_countries.txt";
             string in_file = "who_world_stats.csv";

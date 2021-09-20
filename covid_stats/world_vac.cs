@@ -53,6 +53,7 @@ namespace covid_stats
                     catch (Exception e)
                     {
                         MessageBox.Show("Country" + who_line + "not found");
+                        string ext = e.ToString();
                     }
 
                 }
@@ -93,7 +94,7 @@ namespace covid_stats
         {
             string line = "";
             int counter = 0;
-            int num_rows = 0;
+            //int num_rows = 0;
 
             string data_file = "world_vac_countries.txt";
             string in_file = "world_vac_countries.csv";
@@ -146,8 +147,8 @@ namespace covid_stats
 
 
             int num_rows = 0;
-            int num_cols = 0;
-            string short_date = "";
+            //int num_cols = 0;
+            //string short_date = "";
 
             if (cmbobx_world_vac.SelectedItem.ToString() != "World")
             {
@@ -593,6 +594,7 @@ namespace covid_stats
             }
             catch (Exception exception)
             {
+                string ex = exception.ToString();
                 //Clicked on header on URL column
                 // Ignore the issue and carry on. 
             }

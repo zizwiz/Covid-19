@@ -51,6 +51,7 @@ namespace covid_stats
            catch (Exception ex)
            {
                //comes in here is we cannot find the search term and then we do not draw graphs per 100k
+               string ext = ex.ToString();
                flag = false;
            }
 
@@ -249,6 +250,7 @@ namespace covid_stats
             catch (Exception exception)
             {
                 //not connected to internet so do nothing
+                string ex = exception.ToString();
             }
             
             MakeCountryLists();
